@@ -1,4 +1,4 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Granilar Sul | Orçamentos</title><style>
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Granilar Sul | Orçamentos</title><link rel="stylesheet" href="./interface-v5.css?v=20261117"><style>
 :root{font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;color:#262a2e;background:#f6f5f3;--maroon:#ad2934;--maroon-dark:#89202c;--ink:#262a2e;--muted:#6a7077;--stroke:#e7e4e0;--soft:#faf9f7;--white:#fff}
 *,*::before,*::after{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:20px}body{margin:0;min-width:300px;min-height:100vh;line-height:1.48}button,input,select,textarea{font:inherit}
@@ -320,4 +320,4 @@ $('signIn').onclick=async()=>{const r=await db.auth.signInWithPassword({email:$(
 $('changePasswordToggle').onclick=()=>togglePasswordPanel($('passwordPanel').hidden);
 $('cancelPassword').onclick=()=>togglePasswordPanel(false);
 $('passwordForm').addEventListener('submit',async e=>{e.preventDefault();await changeCurrentPassword()});$('newQuote').onclick=reset;$('addItem').onclick=()=>itemTemplate();$('save').onclick=save;$('print').onclick=printQuote;$('refresh').onclick=async()=>{await load();await loadClients()};$('clientPicker').onchange=()=>fillFromClient($('clientPicker').value);$('saveClient').onclick=saveClient;$('clearClient').onclick=clearClient;$('searchQuotes').addEventListener('input',renderHistory);['email','password'].forEach(k=>$(k).addEventListener('keydown',e=>{if(e.key==='Enter')$('signIn').click()}));['shipping','discount'].forEach(k=>{$(k).addEventListener('input',calc);$(k).addEventListener('blur',()=>{$(k).value=brInput($(k).value);calc()})});reset();session();})();
-</script></body></html>
+</script><script src="./interface-v5.js?v=20261117" defer></script></body></html>
