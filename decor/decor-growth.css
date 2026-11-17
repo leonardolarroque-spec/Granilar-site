@@ -1,0 +1,56 @@
+/* Granilar Sul Decor | Ficha de produto, orientações e fotografias reais */
+.gsd-trust-line{display:flex;align-items:center;gap:9px;flex-wrap:wrap;padding:12px 14px;background:#f7f5f0;border:1px solid #ebe4dc;border-radius:8px;color:#706860;font:690 12px/1.6 Inter,Arial,sans-serif;margin:13px 0 17px}
+.gsd-trust-line::before{content:'✓';display:inline-grid;place-items:center;border:1px solid #cdba9e;border-radius:50%;width:19px;height:19px;color:#7e5747;font-size:11px}
+.gsd-photo-guide{font:710 11px/1.5 Inter,Arial,sans-serif;color:#72665e;margin:2px 0 0;padding:0}
+.gsd-dimensions{padding:13px 15px;border-radius:9px;background:#faf9f6;border:1px solid #ede8df;margin-bottom:18px;color:#5f5853;font-size:12px;line-height:1.6}
+.gsd-dimensions strong{color:#493e3d;font-weight:800}
+.gsd-detail-section{background:#faf8f4;border-top:1px solid #ede5dc;border-bottom:1px solid #e7ded4;padding:clamp(65px,8vw,108px) 0}
+.gsd-detail-inner{max-width:1200px;margin:0 auto;padding:0 clamp(20px,3vw,38px);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.9fr);gap:clamp(25px,5vw,70px);align-items:center}
+.gsd-detail-photo{position:relative;overflow:hidden;border-radius:12px;box-shadow:0 18px 50px #36261d19;margin:0}
+.gsd-detail-photo img{display:block;width:100%;height:auto;aspect-ratio:5/4;object-fit:cover}
+.gsd-detail-photo figcaption{position:absolute;bottom:0;left:0;right:0;padding:28px 16px 13px;background:linear-gradient(0deg,#1b1b19ae,transparent);font-size:11px;font-weight:700;color:#fff}
+.gsd-detail-eyebrow{font-size:10px;font-weight:800;letter-spacing:.14em;color:#8d5b50}
+.gsd-detail-copy h2{font-family:Georgia,'Times New Roman',serif;font-size:clamp(2.25rem,4vw,3.5rem);letter-spacing:-.06em;font-weight:500;line-height:1.13;margin:14px 0 18px;color:#302f2c}
+.gsd-detail-copy p{font-size:.92rem;line-height:1.8;color:#726b64;max-width:55ch}
+.gsd-detail-points{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin:22px 0}
+.gsd-detail-points>div{background:#fff;border:1px solid #e8e1d8;padding:14px 15px;border-radius:9px}
+.gsd-detail-points span{font-size:10px;letter-spacing:.08em;display:block;color:#8c8077;font-weight:750;text-transform:uppercase;margin-bottom:5px}
+.gsd-detail-points strong{display:block;font-size:12px;line-height:1.4;color:#423b36;font-weight:770}
+.gsd-detail-copy a{display:inline-flex;align-items:center;justify-content:center;gap:9px;text-decoration:none;background:#7e2d39;color:#fff;font-size:13px;line-height:1.4;font-weight:780;min-height:49px;padding:12px 19px;border-radius:9px}
+.gsd-detail-copy a:hover{background:#63232e}
+.gsd-faq{padding:clamp(65px,7vw,100px) 0;background:#fff}
+.gsd-faq-inner{max-width:1000px;margin:0 auto;padding:0 clamp(20px,3vw,38px);display:grid;grid-template-columns:.68fr 1.32fr;gap:clamp(20px,4vw,60px)}
+.gsd-faq-heading span{font:770 10px 'IBM Plex Mono',monospace;letter-spacing:.13em;color:#995b50;text-transform:uppercase}
+.gsd-faq-heading h2{font-family:Georgia,'Times New Roman',serif;font-size:clamp(2rem,4vw,3.2rem);font-weight:500;letter-spacing:-.06em;line-height:1.16;margin:12px 0 15px;text-transform:none}
+.gsd-faq-heading p{color:#756f68;font-size:.88rem;line-height:1.7}
+.gsd-faq-list{display:flex;flex-direction:column;gap:10px}
+.gsd-faq-list details{background:#faf9f6;border:1px solid #e9e4dd;border-radius:10px;padding:0 17px}
+.gsd-faq-list details[open]{background:#fff;border-color:#dbd1c5}
+.gsd-faq-list summary{cursor:pointer;list-style:none;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 0;font-size:13px;font-weight:800;color:#393a37;line-height:1.5}
+.gsd-faq-list summary::-webkit-details-marker{display:none}
+.gsd-faq-list summary::after{content:'+';display:grid;place-items:center;width:27px;height:27px;flex:none;border:1px solid #dfd5c8;border-radius:50%;font-size:18px;color:#855562;font-weight:400}
+.gsd-faq-list details[open] summary::after{content:'−'}
+.gsd-faq-list details p{margin:0 0 18px;color:#716d66;font-size:12px;line-height:1.75}
+.gsd-faq-list a{color:#863441;text-decoration:underline;text-underline-offset:3px}
+.gsd-faq-list summary:focus-visible{outline:3px solid #d9a2ab;outline-offset:2px}
+.gsd-footer-conversion{background:#342f2e;text-align:center;color:#fff;padding:54px 20px}
+.gsd-footer-conversion h2{font-family:Georgia,'Times New Roman',serif;font-size:clamp(2rem,4vw,3rem);letter-spacing:-.055em;font-weight:500;line-height:1.2;margin:0 auto 12px;max-width:20ch}
+.gsd-footer-conversion p{color:#e5ddd5;font-size:13px;max-width:58ch;margin:0 auto 21px;line-height:1.7}
+.gsd-footer-conversion a{display:inline-flex;justify-content:center;align-items:center;min-height:50px;border-radius:9px;padding:12px 21px;background:#8e3643;color:#fff;text-decoration:none;font-size:13px;font-weight:770}
+.gsd-footer-conversion a:hover{background:#a23e4e}
+@media(max-width:850px){
+ .gsd-detail-inner{grid-template-columns:1fr;gap:26px}
+ .gsd-detail-photo img{aspect-ratio:16/10}
+ .gsd-faq-inner{grid-template-columns:1fr;gap:21px}
+}
+@media(max-width:560px){
+ .gsd-detail-section,.gsd-faq{padding:60px 0}
+ .gsd-detail-photo img{aspect-ratio:4/3}
+ .gsd-detail-points{gap:7px}
+ .gsd-detail-points>div{padding:12px}
+ .gsd-faq-list details{padding:0 14px}
+ .gsd-faq-list summary{font-size:12px}
+ .gsd-detail-copy a{width:100%}
+ .gsd-footer-conversion{padding:50px 20px}
+ .gsd-footer-conversion a{width:100%;max-width:350px}
+}
