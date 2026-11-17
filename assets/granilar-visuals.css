@@ -1,0 +1,93 @@
+/* Granilar Sul — materiais sem linha atravessada, visualização e comparação.
+   Compartilhado entre as LPs, sem alterar a base do orçamento interno. */
+.material-card .m-label,
+.material-card .m-label::before,
+.material-card .m-label::after{
+  border-top:none!important;
+  border-block-start:0!important;
+  outline:0!important;
+}
+.material-card .m-label{
+  background:linear-gradient(0deg,rgba(9,17,17,.9),rgba(9,17,17,.67) 55%,transparent 100%)!important;
+  min-height:72px;display:flex;justify-content:flex-end;gap:2px;
+  padding:24px 14px 13px!important;
+  pointer-events:none;
+}
+.material-card{background:#e8e5df;isolation:isolate;border:0!important;box-shadow:0 8px 24px rgba(23,34,35,.14)}
+.material-card img{display:block;filter:none!important;transform:none;backface-visibility:hidden}
+.material-card .m-label{z-index:3}
+.material-card .m-name{font-family:Inter,Arial,sans-serif!important;text-transform:none!important;font-weight:780!important;font-size:clamp(.8rem,1.12vw,.94rem)!important;letter-spacing:-.018em!important;line-height:1.3}
+.material-card .m-spec{font-family:Inter,Arial,sans-serif!important;font-size:.7rem!important;color:#e4e2da!important;letter-spacing:0!important}
+.gs-material-toolbar{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;max-width:1240px;padding:0 clamp(20px,3vw,38px);margin:0 auto 21px}
+.gs-material-toolbar-intro{min-width:0;max-width:490px}
+.gs-material-toolbar-intro strong{display:block;color:#263234;font-size:.88rem;font-weight:820;line-height:1.4}
+.gs-material-toolbar-intro p{font-size:.76rem;color:#727e7b;line-height:1.5;margin:3px 0 0}
+.gs-material-filters{display:flex;align-items:center;flex-wrap:wrap;gap:7px}
+.gs-material-filters button{background:white;border:1px solid #dcded9;border-radius:999px;min-height:38px;padding:9px 13px;color:#606d6a;font:740 12px/1.25 Inter,Arial,sans-serif;cursor:pointer}
+.gs-material-filters button[aria-pressed="true"]{background:#28373a;color:white;border-color:#28373a}
+.gs-material-filters button:focus-visible,.gs-compare-btn:focus-visible,.gs-photo-open:focus-visible,.gs-material-preview:focus-visible,.gsd-zoom-product:focus-visible{outline:3px solid #d396a0;outline-offset:2px}
+.material-grid .material-card[hidden]{display:none!important}
+.material-card .gs-material-preview{position:absolute;inset:0;border:0;z-index:2;cursor:zoom-in;background:transparent;width:100%;height:100%;font-size:0;border-radius:inherit}
+.material-card .gs-material-preview::after{content:'⌕  Ampliar';position:absolute;left:10px;top:10px;display:inline-flex;align-items:center;gap:4px;color:#fff;background:#152225ab;backdrop-filter:blur(6px);border:1px solid #ffffff40;border-radius:7px;padding:7px 9px;font:710 10px/1 Inter,Arial,sans-serif;opacity:.9;pointer-events:none}
+.material-card .gs-compare-btn{position:absolute;top:10px;right:10px;z-index:5;background:#fffffff2;color:#303a3c;border:1px solid #ffffff70;border-radius:8px;min-height:32px;padding:8px 10px;font:800 10px/1.1 Inter,Arial,sans-serif;cursor:pointer;box-shadow:0 4px 13px #1d242429}
+.material-card .gs-compare-btn:hover,.material-card .gs-compare-btn[aria-pressed="true"]{background:#982c3b;color:#fff;border-color:#982c3b}
+.material-card.gs-material-selected{box-shadow:0 0 0 3px #9d3543,0 11px 32px #2532322d!important}
+.gs-material-comparison{max-width:1240px;margin:22px auto 0;padding:0 clamp(20px,3vw,38px)}
+.gs-material-comparison[hidden]{display:none!important}
+.gs-material-compare-panel{border-radius:14px;border:1px solid #dfe4df;background:#f8f9f7;padding:22px;box-shadow:0 14px 38px #2233350b}
+.gs-material-compare-heading{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;margin-bottom:15px}
+.gs-material-compare-heading strong{font-size:1.04rem;color:#273336;font-weight:800}
+.gs-material-compare-heading p{margin:5px 0 0;color:#73807c;font-size:.75rem}
+.gs-material-clear{border:1px solid #d7dedb;border-radius:8px;background:#fff;color:#7c3a44;padding:9px 13px;font:760 11px Inter,Arial,sans-serif;cursor:pointer}
+.gs-material-compare-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+.gs-material-compare-item{background:#fff;border:1px solid #e3e6e2;border-radius:10px;min-width:0;overflow:hidden;display:flex;flex-direction:column}
+.gs-material-compare-item img{display:block;width:100%;aspect-ratio:2/1.1;object-fit:cover}
+.gs-material-compare-details{padding:12px 15px;min-width:0}
+.gs-material-compare-details strong{display:block;font-size:.85rem;color:#2f3a3a;font-weight:800}
+.gs-material-compare-details span{display:block;color:#76807e;font-size:.71rem;margin-top:3px}
+.gs-material-compare-placeholder{border:1px dashed #cbd4cd;border-radius:10px;background:#fff;display:grid;place-items:center;min-height:210px;color:#7b8683;text-align:center;font-size:.83rem;padding:25px}
+.gs-material-footnote{font-size:.71rem;color:#78817e;line-height:1.65;margin:12px 0 0}
+.gallery-grid .tile{position:relative}
+.gallery-grid .tile .shine,.gallery-grid .tile .label{pointer-events:none}
+.gs-photo-open{position:absolute;inset:0;z-index:4;border:0;background:transparent;cursor:zoom-in;border-radius:inherit;font-size:0}
+.gs-photo-open::after{content:'↗  Ampliar';position:absolute;top:14px;right:14px;color:#fff;background:#132022b2;backdrop-filter:blur(6px);border:1px solid #ffffff3d;border-radius:7px;padding:9px 12px;font:720 10px/1.1 Inter,Arial,sans-serif;opacity:.88}
+.gs-photo-open:hover::after,.gs-photo-open:focus-visible::after{opacity:1;background:#902d3b}
+body.gs-lightbox-active{overflow:hidden!important}
+.gs-lightbox[hidden]{display:none!important}
+.gs-lightbox{position:fixed;inset:0;z-index:500;background:rgba(10,15,17,.95);display:flex;align-items:center;justify-content:center;padding:60px 48px 34px;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#fff;touch-action:pan-y}
+.gs-lightbox-inner{display:flex;flex-direction:column;align-items:center;justify-content:center;max-width:min(1200px,100%);width:100%;height:100%;min-height:0;gap:12px}
+.gs-lightbox-img{display:block;max-width:100%;max-height:calc(100% - 70px);min-height:0;width:auto;height:auto;object-fit:contain;border-radius:5px;box-shadow:0 15px 70px #0008}
+.gs-lightbox-caption{display:flex;justify-content:space-between;align-items:center;gap:20px;width:min(100%,800px);font-size:12px;color:#e0e2de;line-height:1.5;min-height:28px}
+.gs-lightbox-caption .gs-lightbox-number{color:#babdb9;white-space:nowrap;font-size:11px}
+.gs-lightbox-close,.gs-lightbox-prev,.gs-lightbox-next{position:absolute;display:grid;place-items:center;background:#ffffff1d;color:white;border:1px solid #ffffff4a;border-radius:11px;cursor:pointer;backdrop-filter:blur(10px);line-height:1}
+.gs-lightbox-close{top:17px;right:17px;width:44px;height:44px;font-size:26px}
+.gs-lightbox-prev,.gs-lightbox-next{top:50%;width:43px;height:55px;font-size:28px;transform:translateY(-50%)}
+.gs-lightbox-prev{left:13px}.gs-lightbox-next{right:13px}
+.gs-lightbox button[hidden]{display:none!important}
+.gs-lightbox button:hover{background:#ffffff35}
+.gs-lightbox button:focus-visible{outline:3px solid #f1b8c1;outline-offset:3px}
+.product-media{position:relative}
+.gsd-zoom-product{position:absolute;right:14px;bottom:14px;z-index:10;min-height:42px;background:#fffffff2;color:#413739;border:1px solid #ffffffbf;border-radius:9px;padding:10px 14px;font:780 12px/1.25 Inter,Arial,sans-serif;cursor:zoom-in;box-shadow:0 7px 22px #1821262c}
+.gsd-zoom-product:hover{background:#7e2d39;color:#fff}
+@media(max-width:680px){
+ .gs-material-toolbar{gap:11px}
+ .gs-material-filters{width:100%;gap:6px}
+ .gs-material-filters button{flex:1 1 auto;padding:9px 10px;font-size:11px}
+ .gs-material-compare-panel{padding:15px}
+ .gs-material-compare-grid{gap:8px}
+ .gs-material-compare-item img{aspect-ratio:1/1}
+ .gs-material-compare-details{padding:10px}
+ .gs-material-compare-placeholder{min-height:155px;padding:13px;font-size:.73rem}
+ .gs-material-compare-item strong{font-size:.75rem}
+ .material-card .gs-material-preview::after{top:6px;left:6px;font-size:9px;padding:6px}
+ .material-card .gs-compare-btn{top:6px;right:6px;padding:7px;font-size:9px}
+ .gs-lightbox{padding:64px 12px 28px}
+ .gs-lightbox-img{max-height:calc(100% - 75px)}
+ .gs-lightbox-prev,.gs-lightbox-next{top:auto;bottom:77px;transform:none;width:43px;height:43px}
+ .gs-lightbox-prev{left:12px}.gs-lightbox-next{right:12px}
+ .gs-lightbox-caption{padding:0 4px;flex-wrap:wrap;gap:4px;font-size:11px}
+ .gsd-zoom-product{right:10px;bottom:10px;font-size:11px}
+}
+@media(prefers-reduced-motion:reduce){
+ .gs-lightbox,.gs-photo-open,.gs-material-preview{scroll-behavior:auto}
+}
