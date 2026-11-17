@@ -17,11 +17,14 @@
       {id:'colecao',title:'Nossa coleção'},
       {id:'estoque',title:'Preço e disponibilidade'},
       {id:'catalogo',title:'Bandeja Gold'},
-      {id:'ambientes',title:'Ambientes'}
+      {id:'ambientes',title:'Ambientes'},
+      {id:'detalhes',title:'Detalhes da peça'},
+      {id:'cuidados',title:'Cuidados e dúvidas'}
    ]:[
       {id:hero.id,title:'Início'},
       {id:'servicos',title:'Serviços'},
       {id:'galeria',title:'Projetos reais'},
+      {id:'guia-materiais',title:'Guia de pedras'},
       {id:'materiais',title:'Materiais'},
       {id:'orcamento-inteligente',title:'Pedir orçamento'},
       {id:'faq',title:'Dúvidas frequentes'}
