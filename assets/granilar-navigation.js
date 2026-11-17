@@ -14,10 +14,10 @@
    if(!hero.id)hero.id='gsnav-inicio';
    const layout=decor?[
       {id:hero.id,title:'Início'},
-      {id:'catalogo',title:'Bandeja Gold'},
-      {id:'ambientes',title:'Ambientes'},
       {id:'colecao',title:'Nossa coleção'},
-      {id:'estoque',title:'Preço e disponibilidade'}
+      {id:'estoque',title:'Preço e disponibilidade'},
+      {id:'catalogo',title:'Bandeja Gold'},
+      {id:'ambientes',title:'Ambientes'}
    ]:[
       {id:hero.id,title:'Início'},
       {id:'servicos',title:'Serviços'},
