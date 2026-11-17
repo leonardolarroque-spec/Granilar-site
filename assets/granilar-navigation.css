@@ -36,6 +36,7 @@ body.gsnav-context-decor .gsnav-rail{background:#fdfbf7f2;border-color:#eae1d7}
 @media(max-width:900px){
   .gsnav-trigger{display:inline-flex!important}
   .gsnav-rail{display:none!important}
+  .nav-inner .nav-links,.nav-inner .phone-line{display:none!important}
   .nav-inner .gsnav-trigger{order:4}
   .nav-inner .brand{order:1}
   .nav-inner .nav-cta{order:3}
@@ -43,6 +44,11 @@ body.gsnav-context-decor .gsnav-rail{background:#fdfbf7f2;border-color:#eae1d7}
   .header-inner .brand{order:1}
   .header-inner .nav{display:none!important}
   .header-inner{justify-content:space-between}
+}
+@media(min-width:681px) and (max-width:900px){
+ .header-inner .nav{display:flex!important}
+ .header-inner .nav>a:not(.shop-top-link){display:none!important}
+ .header-inner .nav .shop-top-link{display:inline-flex!important}
 }
 @media(max-width:520px){
   .nav-inner{gap:6px!important;padding-left:12px!important;padding-right:12px!important}
