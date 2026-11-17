@@ -315,7 +315,13 @@ function printQuote(){
    ${q.notes?`<div class="p-notes"><div class="p-section-title">OBSERVAÇÕES</div><p>${escape(q.notes)}</p></div>`:""}
    <div class="p-footer"><div><strong>Granilar Marmores e Granitos Renata Oliveira da Silva Marmoraria</strong><br>CNPJ: 45.273.900/0001-40<br>Rua Giacomo Muttoni, 200 · Belém Velho · Porto Alegre/RS · CEP 91787-310</div><div>Granilar Sul<br>Qualidade, Compromisso, Confiança.</div></div>
  </div>`;
- window.print()
+ const logo=$("printArea").querySelector(".p-logo");
+ if(logo&&!logo.complete){
+  let done=false;const show=()=>{if(done)return;done=true;window.print()};
+  logo.addEventListener("load",show,{once:true});
+  logo.addEventListener("error",show,{once:true});
+  setTimeout(show,1800);
+ }else window.print()
 }
 async function requestPasswordReset(){
  const email=$('email').value.trim();
