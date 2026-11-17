@@ -9,6 +9,10 @@
   const tiles=[...document.querySelectorAll('#galeria .gallery-grid .tile')];
   if(!guide||!tiles.length)return;
   document.body.dataset.gsGrowth='ready';
+  document.addEventListener('click',event=>{
+    const service=event.target.closest('a.gs-service-cta[data-gs-service]');
+    if(service)track('granilar_servico_contato',{servico:service.dataset.gsService,origem:'lp_servicos'});
+  });
 
   // Cada foto real leva à sua página, sem interferir no botão existente de ampliar.
   const routes={
