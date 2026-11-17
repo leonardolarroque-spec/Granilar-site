@@ -25,13 +25,17 @@
     const match=(img.getAttribute('src')||'').match(/imagem-(\d{2})\.jpg$/i);
     const slug=match&&routes[match[1]];if(!slug)continue;
     const label=tile.querySelector('.label')?.textContent.trim()||img.alt;
-    const link=document.createElement('a');
-    link.className='gs-project-detail-link';
-    link.href='/projetos/'+slug+'/';
-    link.textContent='Ver projeto ↗';
-    link.setAttribute('aria-label','Ver detalhes do projeto '+label);
+    let link=tile.querySelector('.gs-project-detail-link');
+    if(!link){
+      link=document.createElement('a');
+      link.className='gs-project-detail-link';
+      link.href='/projetos/'+slug+'/';
+      link.textContent='Ver projeto ↗';
+      link.setAttribute('aria-label','Ver detalhes do projeto '+label);
+      tile.append(link);
+    }
     link.addEventListener('click',()=>track('granilar_projeto_aberto',{projeto:slug,origem:'galeria'}));
-    tile.append(link);linked++;
+    linked++;
   }
   const gallery=$('#galeria .gallery-grid');
   if(gallery&&linked>0){
