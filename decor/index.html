@@ -307,8 +307,22 @@ header{position:sticky; top:0; z-index:30; backdrop-filter:blur(8px); background
  }));
 })();
 </script><div class="gsd-mobile-store" aria-label="Acesso à loja oficial">
-  <div class="gd-price"><small>Bandeja Gold · 40 × 25 cm</small><strong>R$ 399,90</strong></div>
+  <div class="gd-price"><small>Preço de referência · Bandeja Gold</small><strong>R$ 399,90</strong></div>
   <a data-outbound="mercado-livre-loja" href="https://www.mercadolivre.com.br/pagina/granilarsul" rel="noopener noreferrer" target="_blank">Ver na loja ↗</a>
 </div>
+
+<script>
+/* Evento informativo para GTM: clique para a loja, não venda concluída. */
+document.addEventListener('click',function(event){
+ const link=event.target.closest('a[data-outbound="mercado-livre-loja"]');
+ if(!link)return;
+ window.dataLayer=window.dataLayer||[];
+ window.dataLayer.push({
+  event:'decor_clique_mercado_livre',
+  origem:link.className||'link_decor',
+  destino:'loja_oficial'
+ });
+});
+</script>
 </body>
 </html>
