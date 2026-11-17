@@ -89,6 +89,13 @@ body.gs-lightbox-active{overflow:hidden!important}
  .gs-lightbox-caption{padding:0 4px;flex-wrap:wrap;gap:4px;font-size:11px}
  .gsd-zoom-product{right:10px;bottom:10px;font-size:11px}
 }
+@media(max-width:390px){
+ .material-card .gs-material-preview::after{content:'⌕';font-size:16px;line-height:1;padding:6px 8px}
+ .material-card .gs-compare-btn{font-size:9px;padding:7px 6px}
+ .material-card .m-label{min-height:67px;padding:18px 8px 9px!important}
+ .material-card .m-name{font-size:.73rem!important}
+ .material-card .m-spec{font-size:.61rem!important}
+}
 @media(prefers-reduced-motion:reduce){
  .gs-lightbox,.gs-photo-open,.gs-material-preview{scroll-behavior:auto}
 }
