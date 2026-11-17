@@ -5,7 +5,7 @@
  'use strict';
  function init(){
    if(document.body.dataset.gsNavigation==='ready')return;
-   const decor=Boolean(document.querySelector('.gsd-mobile-store'));
+   const decor=Boolean(document.querySelector('.header-inner'));
    const header=document.querySelector(decor?'.header-inner':'.nav-inner');
    const hero=document.querySelector('section.hero');
    if(!header||!hero)return;
