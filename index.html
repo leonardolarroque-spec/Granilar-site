@@ -522,7 +522,8 @@ header{background:rgba(252,250,247,.975);backdrop-filter:blur(12px);border-botto
 <link rel="stylesheet" href="/assets/granilar-site-premium.css?v=20261117">
 <link rel="stylesheet" href="/assets/granilar-navigation.css?v=20261117b">
 <link rel="stylesheet" href="/assets/granilar-visuals.css?v=20261117c">
-<link rel="preload" as="image" href="/assets/granilar-final-20261029/imagem-05.webp">
+<link rel="stylesheet" href="/assets/granilar-growth.css?v=20261117a">
+<link rel="preload" as="image" href="/assets/granilar-final-20261029/imagem-05.webp" fetchpriority="high">
 <link rel="preload" as="image" href="/assets/granilar-final-20261029/imagem-05.webp" fetchpriority="high">
 </head>
 <body>
@@ -670,6 +671,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </section>
 
 
+<section class="gs-editorial-story" aria-labelledby="gs-editorial-title">
+ <div class="gs-editorial-story-photo">
+  <img src="/assets/granilar-final-20261029/imagem-12.jpg" alt="Projeto de cozinha em Quartzo Calacatta Gold do portfólio Granilar Sul" loading="lazy" decoding="async">
+ </div>
+ <div class="gs-editorial-story-copy">
+  <span>Detalhes que fazem diferença</span>
+  <h2 id="gs-editorial-title">A sua ideia merece cuidado em cada etapa.</h2>
+  <p>Material, medidas e acabamento são decisões que transformam o resultado. Nossa equipe ajuda você a avaliar as possibilidades para seu espaço, seja uma solução funcional ou um projeto mais elaborado.</p>
+  <a href="#orcamento-inteligente">Conversar sobre meu projeto ↗</a>
+ </div>
+</section>
 <section id="decor-link" class="gsd-bridge" aria-labelledby="gsd-bridge-title">
   <div class="wrap">
     <div class="gsd-bridge-inner">
@@ -683,6 +695,51 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </section>
 
+<section class="gs-material-guide" id="guia-materiais" aria-labelledby="gs-guide-title">
+ <div class="gs-guide-inner">
+  <div class="gs-guide-intro">
+   <span class="gs-guide-eyebrow">Encontre seu caminho</span>
+   <h2 id="gs-guide-title">Qual pedra combina com a sua ideia?</h2>
+   <p>Três respostas simples ajudam a descobrir materiais para se inspirar. Você escolhe o estilo; nós ajudamos com a avaliação técnica e o orçamento.</p>
+   <div class="gs-guide-benefits">
+    <span>Sem preço automático ou promessas técnicas</span>
+    <span>Texturas para comparar visualmente</span>
+    <span>Preferências prontas para enviar no WhatsApp</span>
+   </div>
+  </div>
+  <div class="gs-guide-form-wrap">
+   <form id="gs-material-guide-form" aria-label="Guia para explorar materiais" action="#guia-materiais" method="get">
+    <div class="gs-guide-header"><strong>Seu guia de materiais</strong><span>3 PERGUNTAS</span></div>
+    <div class="gs-guide-fields">
+     <label for="gs-guide-ambiente"><span>01</span> Onde será usado?
+      <select id="gs-guide-ambiente" name="ambiente" required>
+       <option value="">Escolha o ambiente</option><option value="cozinha">Cozinha</option><option value="banheiro">Banheiro ou lavabo</option><option value="gourmet">Área gourmet</option><option value="outro">Outro ambiente</option>
+      </select>
+     </label>
+     <label for="gs-guide-estilo"><span>02</span> Que visual você imagina?
+      <select id="gs-guide-estilo" name="estilo" required>
+       <option value="">Escolha o estilo</option><option value="claro">Claro e discreto</option><option value="escuro">Escuro e marcante</option><option value="veios">Veios em destaque</option><option value="terroso">Tons naturais</option><option value="indeciso">Ainda não sei</option>
+      </select>
+     </label>
+     <label for="gs-guide-prioridade"><span>03</span> O que importa mais?
+      <select id="gs-guide-prioridade" name="prioridade" required>
+       <option value="">Escolha uma prioridade</option><option value="praticidade">Rotina e praticidade</option><option value="visual">Impacto visual</option><option value="investimento">Planejamento do investimento</option><option value="orientacao">Preciso de orientação</option>
+      </select>
+     </label>
+    </div>
+    <button class="gs-guide-submit" type="submit">Ver minhas inspirações <span aria-hidden="true">↗</span></button>
+    <p class="gs-guide-note">O guia apresenta referências visuais, não uma especificação técnica. Disponibilidade, instalação e valores são avaliados pela equipe.</p>
+    <div id="gs-guide-results" class="gs-guide-results" tabindex="-1" hidden>
+     <h3>Algumas pedras para começar a explorar</h3>
+     <p id="gs-guide-result-description"></p>
+     <div id="gs-guide-suggestions" class="gs-guide-suggestions"></div>
+     <a id="gs-guide-whatsapp" class="gs-guide-whatsapp" href="https://wa.me/5551993099097" rel="noopener noreferrer" target="_blank">Enviar preferências para a Granilar Sul <span aria-hidden="true">↗</span></a>
+     <p class="gs-guide-disclaimer">Cores e veios podem variar entre fotografias e chapas reais. A escolha final depende do seu projeto.</p>
+    </div>
+   </form>
+  </div>
+ </div>
+</section>
 <section id="materiais" style="padding-bottom:0;">
   <div class="wrap">
     <div class="section-head">
@@ -692,16 +749,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
   </div>
   <div class="material-grid">
-    <div class="material-card"><img src="/assets/granilar-final-20261029/imagem-13.jpg" alt="Textura ilustrativa do Granito Branco Itaúnas"><div class="m-label"><span class="m-name">Branco Itaúnas</span><span class="m-spec">Granito · Polido</span></div></div>
-    <div class="material-card"><img src="/assets/granilar-final-20261029/imagem-14.jpg" alt="Textura ilustrativa do Granito Branco Dallas"><div class="m-label"><span class="m-name">Branco Dallas</span><span class="m-spec">Granito · Polido</span></div></div>
-    <div class="material-card"><img src="/assets/granilar-final-20261029/imagem-15.jpg" alt="Textura ilustrativa do Granito Verde Ubatuba"><div class="m-label"><span class="m-name">Verde Ubatuba</span><span class="m-spec">Granito · Polido</span></div></div>
-    <div class="material-card"><img src="/assets/granilar-final-20261029/imagem-16.jpg" alt="Textura ilustrativa do Granito Preto Via Láctea"><div class="m-label"><span class="m-name">Preto Via Láctea</span><span class="m-spec">Granito · Polido</span></div></div>
-    <div class="material-card"><img src="/assets/granilar-final-20261029/imagem-17.jpg" alt="Textura ilustrativa do Granito Preto São Gabriel"><div class="m-label"><span class="m-name">Preto São Gabriel</span><span class="m-spec">Granito · Polido</span></div></div>
-    <div class="material-card"><img src="/assets/granilar-final-20261029/imagem-18.jpg" alt="Textura ilustrativa do Granito Amarelo Ornamental"><div class="m-label"><span class="m-name">Amarelo Ornamental</span><span class="m-spec">Granito · Polido</span></div></div>
-    <div class="material-card"><img src="/assets/granilar-final-20261029/imagem-19.jpg" alt="Textura ilustrativa do Granito Amarelo Icaraí"><div class="m-label"><span class="m-name">Amarelo Icaraí</span><span class="m-spec">Granito · Polido</span></div></div>
-    <div class="material-card"><img src="/assets/granilar-final-20261029/imagem-20.jpg" alt="Textura ilustrativa do Mármore Branco Paraná"><div class="m-label"><span class="m-name">Branco Paraná</span><span class="m-spec">Mármore · Polido</span></div></div>
-    <div class="material-card"><img src="/assets/granilar-final-20261029/imagem-21.jpg" alt="Textura ilustrativa do Quartzo Branco"><div class="m-label"><span class="m-name">Quartzo Branco</span><span class="m-spec">Quartzo · Polido</span></div></div>
-    <div class="material-card"><img src="/assets/granilar-final-20261029/imagem-22.jpg" alt="Textura ilustrativa do Quartzo Calacatta Gold"><div class="m-label"><span class="m-name">Calacatta Gold</span><span class="m-spec">Quartzo · Polido</span></div></div>
+    <div class="material-card"><img src="/assets/granilar-final-20261029/imagem-13.jpg" loading="lazy" decoding="async" alt="Textura ilustrativa do Granito Branco Itaúnas"><div class="m-label"><span class="m-name">Branco Itaúnas</span><span class="m-spec">Granito · Polido</span></div></div>
+    <div class="material-card"><img src="/assets/granilar-final-20261029/imagem-14.jpg" loading="lazy" decoding="async" alt="Textura ilustrativa do Granito Branco Dallas"><div class="m-label"><span class="m-name">Branco Dallas</span><span class="m-spec">Granito · Polido</span></div></div>
+    <div class="material-card"><img src="/assets/granilar-final-20261029/imagem-15.jpg" loading="lazy" decoding="async" alt="Textura ilustrativa do Granito Verde Ubatuba"><div class="m-label"><span class="m-name">Verde Ubatuba</span><span class="m-spec">Granito · Polido</span></div></div>
+    <div class="material-card"><img src="/assets/granilar-final-20261029/imagem-16.jpg" loading="lazy" decoding="async" alt="Textura ilustrativa do Granito Preto Via Láctea"><div class="m-label"><span class="m-name">Preto Via Láctea</span><span class="m-spec">Granito · Polido</span></div></div>
+    <div class="material-card"><img src="/assets/granilar-final-20261029/imagem-17.jpg" loading="lazy" decoding="async" alt="Textura ilustrativa do Granito Preto São Gabriel"><div class="m-label"><span class="m-name">Preto São Gabriel</span><span class="m-spec">Granito · Polido</span></div></div>
+    <div class="material-card"><img src="/assets/granilar-final-20261029/imagem-18.jpg" loading="lazy" decoding="async" alt="Textura ilustrativa do Granito Amarelo Ornamental"><div class="m-label"><span class="m-name">Amarelo Ornamental</span><span class="m-spec">Granito · Polido</span></div></div>
+    <div class="material-card"><img src="/assets/granilar-final-20261029/imagem-19.jpg" loading="lazy" decoding="async" alt="Textura ilustrativa do Granito Amarelo Icaraí"><div class="m-label"><span class="m-name">Amarelo Icaraí</span><span class="m-spec">Granito · Polido</span></div></div>
+    <div class="material-card"><img src="/assets/granilar-final-20261029/imagem-20.jpg" loading="lazy" decoding="async" alt="Textura ilustrativa do Mármore Branco Paraná"><div class="m-label"><span class="m-name">Branco Paraná</span><span class="m-spec">Mármore · Polido</span></div></div>
+    <div class="material-card"><img src="/assets/granilar-final-20261029/imagem-21.jpg" loading="lazy" decoding="async" alt="Textura ilustrativa do Quartzo Branco"><div class="m-label"><span class="m-name">Quartzo Branco</span><span class="m-spec">Quartzo · Polido</span></div></div>
+    <div class="material-card"><img src="/assets/granilar-final-20261029/imagem-22.jpg" loading="lazy" decoding="async" alt="Textura ilustrativa do Quartzo Calacatta Gold"><div class="m-label"><span class="m-name">Calacatta Gold</span><span class="m-spec">Quartzo · Polido</span></div></div>
   </div>
   <div style="height:80px;"></div>
 </section>
@@ -851,5 +908,10 @@ document.addEventListener('click', function(event) {
 </script>
 <script src="/assets/granilar-navigation.js?v=20261117b" defer></script>
 <script src="/assets/granilar-visuals.js?v=20261117c" defer></script>
+<script src="/assets/granilar-growth.js?v=20261117a" defer></script>
+<div class="gs-mobile-leadbar" aria-label="Atendimento da Granilar Sul">
+ <span><strong>Seu projeto começa aqui</strong><small>Atendimento direto pelo WhatsApp</small></span>
+ <a href="https://wa.me/5551993099097?text=Ol%C3%A1!%20Conheci%20a%20Granilar%20Sul%20pelo%20site%20e%20quero%20conversar%20sobre%20um%20projeto." rel="noopener noreferrer" target="_blank">Pedir orçamento ↗</a>
+</div>
 </body>
 </html>
