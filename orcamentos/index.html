@@ -274,6 +274,20 @@ function fmtDateBR(value){
  const s=String(value).slice(0,10),m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(s);
  return m?`${m[3]}/${m[2]}/${m[1]}`:s;
 }
+function printableFingerprint(q){
+ const t=v=>String(v??'').trim();
+ return JSON.stringify({
+  client_name:t(q.client_name),client_phone:t(q.client_phone),client_email:t(q.client_email),
+  project_address:t(q.project_address),payment_terms:t(q.payment_terms),
+  delivery_terms:t(q.delivery_terms),valid_until:t(q.valid_until),notes:t(q.notes),
+  shipping:toCents(q.shipping),discount:toCents(q.discount),
+  items:(Array.isArray(q.items)?q.items:[]).map(i=>({
+   description:t(i.description),details:t(i.details),material:t(i.material),
+   environment:t(i.environment),finish:t(i.finish),unit:t(i.unit)||'un',
+   quantity:num(i.quantity),price:toCents(i.price)
+  }))
+ })
+}
 function printQuote(){
  const q=data();
  if(!q.client_name||!q.items.length||q.items.some(i=>!i.description||i.quantity<=0||i.price<=0)){
@@ -281,7 +295,10 @@ function printQuote(){
  }
  const subtotalCents=q.items.reduce((s,i)=>s+lineCents(i.quantity,i.price),0);
  if(toCents(q.discount)>subtotalCents+toCents(q.shipping)){msg("O desconto não pode ultrapassar o total do orçamento.");return}
- const currentNumber=editing?quotes.find(x=>x.id===editing)?.number:null;
+ const savedQuote=editing?quotes.find(x=>x.id===editing):null;
+ const hasUnsavedChanges=Boolean(savedQuote&&printableFingerprint(savedQuote)!==printableFingerprint(q));
+ const currentNumber=savedQuote&&!hasUnsavedChanges?savedQuote.number:null;
+ if(hasUnsavedChanges)msg('Existem alterações não salvas. O documento será uma prévia sem número; salve o orçamento antes de enviar ao cliente.');
  const total=(subtotalCents+toCents(q.shipping)-toCents(q.discount))/100;
  const unitLabel={"un":"un.","m²":"m²","m linear":"m lin.","serviço":"serv."};
  const parts=q.items.map((item,index)=>{
