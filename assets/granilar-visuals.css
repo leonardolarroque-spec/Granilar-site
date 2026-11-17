@@ -52,6 +52,7 @@
 .gs-photo-open{position:absolute;inset:0;z-index:4;border:0;background:transparent;cursor:zoom-in;border-radius:inherit;font-size:0}
 .gs-photo-open::after{content:'↗  Ampliar';position:absolute;top:14px;right:14px;color:#fff;background:#132022b2;backdrop-filter:blur(6px);border:1px solid #ffffff3d;border-radius:7px;padding:9px 12px;font:720 10px/1.1 Inter,Arial,sans-serif;opacity:.88}
 .gs-photo-open:hover::after,.gs-photo-open:focus-visible::after{opacity:1;background:#902d3b}
+.gs-visually-hidden{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
 body.gs-lightbox-active{overflow:hidden!important}
 .gs-lightbox[hidden]{display:none!important}
 .gs-lightbox{position:fixed;inset:0;z-index:500;background:rgba(10,15,17,.95);display:flex;align-items:center;justify-content:center;padding:60px 48px 34px;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#fff;touch-action:pan-y}
