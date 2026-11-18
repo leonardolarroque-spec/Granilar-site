@@ -1,0 +1,137 @@
+/* Granilar Sul | Revisão de legibilidade do sistema interno — 18 nov 2026
+   Direção: ferramenta de trabalho. Hierarquia dos dados > decoração.
+   Nenhum seletor altera a geração do PDF ou a persistência dos orçamentos. */
+@media screen{
+ #app .gs-sidebar{background:#25333A}
+ #app .gs-sidebar-brand{margin-bottom:20px;padding-bottom:24px}
+ #app .gs-sidebar-brand-text strong{
+   letter-spacing:.02em;font-size:13px;font-weight:800;line-height:1.35;
+ }
+ #app .gs-nav-title{
+   text-transform:none;letter-spacing:.02em;font-size:11px;
+   color:#AAB8BE;font-weight:670;
+ }
+ #app .gs-nav-item{border-radius:6px;min-height:44px}
+ #app .gs-nav-item:focus-visible{
+   outline:2px solid #F2B7BE;outline-offset:2px;
+ }
+ #app .gs-sidebar-foot{color:#D7DFE1}
+ #app .gs-page-heading h1{
+   letter-spacing:-.045em;font-size:clamp(1.6rem,2.3vw,2.05rem);
+   font-weight:830;color:#26353B;
+ }
+ #app .gs-overview-head{margin-bottom:20px}
+ #app .gs-overview-head h2{font-weight:780;letter-spacing:-.04em;font-size:clamp(1.42rem,2.1vw,1.8rem)}
+ #app .gs-primary-action{
+   border-radius:6px;min-height:44px;
+   box-shadow:none;
+ }
+ #gbi-root{--gbi-ink:#263840;--gbi-border:#DCE4DF;--gbi-muted:#6D7B7B}
+ #gbi-root .gbi-periodbar{
+   align-items:flex-end;gap:12px;padding-bottom:18px;
+ }
+ #gbi-root .gbi-periodbar .gbi-eyebrow{
+   text-transform:none;letter-spacing:0;font-size:11px;
+   color:#8A4752;font-weight:750;
+ }
+ #gbi-root .gbi-section-title{
+   font-size:clamp(1.12rem,1.7vw,1.35rem);
+   letter-spacing:-.045em;font-weight:800;
+ }
+ #gbi-root .gbi-description{font-size:12px;line-height:1.75;color:#67787C}
+ #gbi-root .gbi-kpis{gap:9px;margin-bottom:18px}
+ #gbi-root .gbi-kpi{
+   background:#fff;border:1px solid #DFE6E1;border-radius:7px;
+   box-shadow:none;padding:19px 17px 16px;min-height:155px;gap:5px;
+ }
+ #gbi-root .gbi-kpi .gbi-icon{
+   background:transparent;color:#8B3A46;padding:0;
+   font-size:15px;width:24px;height:22px;margin-bottom:10px;
+ }
+ #gbi-root .gbi-kpi small{
+   color:#576A70;font-size:12px;font-weight:720;line-height:1.4;
+ }
+ #gbi-root .gbi-kpi strong{
+   letter-spacing:-.057em;font-size:clamp(1.55rem,2.6vw,2.25rem);
+   line-height:1.14;font-weight:840;color:#273A40;
+ }
+ #gbi-root .gbi-kpi .gbi-unit{
+   color:#728084;font-size:11px;line-height:1.5;
+ }
+ /* A negociação é o único cartão de ênfase forte: é o valor que pede ação. */
+ #gbi-root .gbi-kpi:nth-child(3){
+   border-color:#263B42;background:#263B42;color:white;
+ }
+ #gbi-root .gbi-kpi:nth-child(3) .gbi-icon{color:#E5C4A8}
+ #gbi-root .gbi-kpi:nth-child(3) small{color:#D4E0E0}
+ #gbi-root .gbi-kpi:nth-child(3) strong{color:white}
+ #gbi-root .gbi-kpi:nth-child(3) .gbi-unit{color:#C3D2D4}
+ #gbi-root .gbi-columns{gap:12px}
+ #gbi-root .gbi-card{
+   border:1px solid #DFE6E2;border-radius:7px;box-shadow:none;
+   padding:clamp(17px,2vw,24px);
+ }
+ #gbi-root .gbi-cardhead{
+   border-bottom:1px solid #EBEFEB;
+   margin-bottom:19px;padding-bottom:15px;
+ }
+ #gbi-root .gbi-cardhead .gbi-section-title{font-size:1.1rem}
+ #gbi-root .gbi-bars{gap:16px}
+ #gbi-root .gbi-bar-line{font-size:12px}
+ #gbi-root .gbi-bar-track,#gbi-root .gbi-source-track{background:#EDF1ED}
+ #gbi-root .gbi-rate{
+   background:#F6F8F6;border:1px solid #E1E7E2;border-radius:5px;
+ }
+ #gbi-root .gbi-rate strong{color:#2A4843;font-size:1.6rem}
+ #gbi-root .gbi-rate span{font-size:11px;color:#61736E}
+ #gbi-root .gbi-todo-row{
+   border-radius:5px;border-color:#E5EAE6;background:#fff;
+ }
+ #gbi-root .gbi-todo-row strong{font-size:12px}
+ #gbi-root .gbi-todo-row small{font-size:11px}
+ #gbi-root .gbi-source-row span,#gbi-root .gbi-source-row b{font-size:11px}
+ #gbi-root .gbi-integration{
+   background:#F8FAF8;border:1px solid #E1E9E2;border-radius:6px;
+ }
+ #gbi-root .gbi-traffic-grid{gap:7px}
+ #gbi-root .gbi-traffic-tile{border-radius:5px;background:#fff;padding:12px}
+ #gbi-root .gbi-traffic-tile span{font-size:11px;line-height:1.4}
+ #gbi-root .gbi-traffic-tile b{font-variant-numeric:tabular-nums}
+ #gbi-root .gbi-traffic-tile b.gbi-traffic-value{color:#2D4841}
+ #gbi-root .gbi-analytics-entry span,
+ #gbi-root .gbi-analytics-entry strong{font-size:11px}
+ #gbi-root .gbi-disclaimer,#gbi-root .gbi-analytics-foot{font-size:11px;line-height:1.65}
+ #gbi-root .gbi-period-select{border-radius:5px!important}
+ #gbi-root .gbi-refresh{border-radius:5px!important}
+ #gbi-root button:focus-visible,#gbi-root a:focus-visible,
+ #gbi-root select:focus-visible{
+   outline:3px solid #C47C8B;outline-offset:2px;
+ }
+ #app .gs-form-surface,
+ #app .gs-financial-panel,
+ #app .gs-table-section{border-radius:7px}
+ #app .gs-editor-heading{margin-bottom:15px}
+ #app .gs-form-surface h3{letter-spacing:-.02em}
+ #app .gs-financial-panel .summary-line.grand{
+   border-radius:5px;
+ }
+}
+@media screen and (max-width:1070px){
+ #gbi-root .gbi-kpi strong{font-size:clamp(1.45rem,3.7vw,2.08rem)}
+}
+@media screen and (max-width:650px){
+ #app .gs-content{padding-inline:15px}
+ #gbi-root .gbi-kpis{gap:8px}
+ #gbi-root .gbi-kpi{padding:15px 12px;min-height:136px}
+ #gbi-root .gbi-kpi .gbi-icon{margin-bottom:6px}
+ #gbi-root .gbi-kpi strong{font-size:clamp(1.36rem,6.5vw,1.86rem)}
+ #gbi-root .gbi-kpi small{font-size:11px}
+ #gbi-root .gbi-kpi .gbi-unit{font-size:10px}
+ #gbi-root .gbi-card{padding:16px 13px}
+ #gbi-root .gbi-traffic-tile{padding:10px 7px}
+ #gbi-root .gbi-traffic-tile span{font-size:10px}
+ #gbi-root .gbi-periodbar{align-items:stretch}
+}
+@media(prefers-reduced-motion:reduce){
+ #gbi-root .gbi-bar-fill{transition:none!important}
+}
