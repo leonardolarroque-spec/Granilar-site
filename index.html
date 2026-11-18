@@ -877,7 +877,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <script>
 (function(){
  const form=document.getElementById('granilar-quote');
- if(form)form.addEventListener('submit',function(e){e.preventDefault();if(!form.reportValidity())return;const d=new FormData(form);const lines=['Olá! Conheci a Granilar Sul pelo site e gostaria de solicitar um orçamento.','', 'Ambiente: '+d.get('ambiente'),'Material: '+d.get('material'),'Medidas aproximadas: '+(d.get('medidas')||'Ainda não informadas'),'Cidade: '+d.get('cidade'),'','Posso enviar fotos e mais detalhes por aqui.'];window.dataLayer=window.dataLayer||[];window.dataLayer.push({event:'orcamento_iniciado',origem:'formulario_site'});window.open('https://wa.me/5551993099097?text='+encodeURIComponent(lines.join('\n')),'_blank','noopener,noreferrer');});
+ if(form)form.addEventListener('submit',function(e){e.preventDefault();if(!form.reportValidity())return;const d=new FormData(form);const source=window.granilarCampaignAttribution&&window.granilarCampaignAttribution.label();const lines=['Olá! Conheci a Granilar Sul pelo site e gostaria de solicitar um orçamento.','', 'Ambiente: '+d.get('ambiente'),'Material: '+d.get('material'),'Medidas aproximadas: '+(d.get('medidas')||'Ainda não informadas'),'Cidade: '+d.get('cidade'),'','Posso enviar fotos e mais detalhes por aqui.'];if(source)lines.push('',source);window.dataLayer=window.dataLayer||[];window.dataLayer.push({event:'orcamento_iniciado',origem:'formulario_site'});window.open('https://wa.me/5551993099097?text='+encodeURIComponent(lines.join('\n')),'_blank','noopener,noreferrer');});
  const filters=document.querySelectorAll('.gallery-filter'),tiles=document.querySelectorAll('.gallery-grid .tile');
  tiles.forEach((tile,i)=>{const alt=(tile.querySelector('img')?.getAttribute('alt')||'').toLowerCase();tile.dataset.category=/cozinha|bancada|ilha|pia/.test(alt)?'cozinha':/banheiro|lavabo|lavatório|cuba|nicho/.test(alt)?'banheiro':'outros';});
  filters.forEach(btn=>btn.addEventListener('click',()=>{const f=btn.dataset.filter;filters.forEach(b=>b.setAttribute('aria-pressed',String(b===btn)));tiles.forEach(t=>t.hidden=f!=='todos'&&t.dataset.category!==f); }));
@@ -894,6 +894,7 @@ document.addEventListener('click', function(event) {
   window.dataLayer.push({event:'granilar_whatsapp_click',link_location:link.className || 'site'});
 });
 </script>
+<script src="/assets/granilar-campaign-attribution.js?v=20261118a" defer></script>
 <script src="/assets/granilar-navigation.js?v=20261117e" defer></script>
 <script src="/assets/granilar-visuals.js?v=20261117c" defer></script>
 <script src="/assets/granilar-growth.js?v=20261117c" defer></script>
