@@ -264,7 +264,7 @@ function data(){
   lead_source:campaign?'google_ads':($("leadSource").value||null),
   utm_campaign:campaign||null,
   utm_content:campaign?(creative||null):null,
-  sent_at:status==='enviado'?(current?.sent_at||new Date().toISOString()):(current?.sent_at||null),
+  sent_at:status==='enviado'&&(!current||current.status!=='enviado')?(current?.sent_at||new Date().toISOString()):(current?.sent_at||null),
   closed_at:status==='fechado'?(current?.closed_at||new Date().toISOString()):null,
   next_followup_on:$("nextFollowup").value||null
  }
