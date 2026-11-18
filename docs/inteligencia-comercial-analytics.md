@@ -6,7 +6,10 @@ Atualizado em 18/11/2026.
 - LP principal, LP Decor e projetos possuem GTM `GTM-NNWD5M6K` no código.
 - Os eventos de interação são enviados ao `window.dataLayer`; isso **não comprova**, por si só, que chegam ao GA4.
 - O painel privado em `/orcamentos/` usa exclusivamente os registros autenticados de propostas do Supabase, respeitando RLS.
-- Na última verificação, o conector Supermetrics para GA4 (`GAWA`) estava **não autenticado**; portanto visitantes e cliques aparecem como não disponíveis (—), não como zero.
+- Em 18/11/2026, o conector Supermetrics para GA4 (`GAWA`) passou a **AUTENTICADO**, propriedade `549545009` — www.granilarsulmarmoraria.com.
+- Foi importado um resumo agregado de **19/10/2026 a 17/11/2026** em `public.analytics_snapshots`: 91 usuários ativos, 101 sessões, 135 visualizações de página, 22 eventos `clique_whatsapp` e 2 `orcamento_iniciado`. Esses dados são eventos do GA4, **não conversas ou vendas confirmadas**.
+- O painel privado em `/orcamentos/` mostra o período e a data da importação. O resumo **não atualiza automaticamente**: clicar em “Atualizar” relê o último registro salvo no Supabase.
+- A tabela tem **RLS ativada**; somente membros ativos da equipe autenticada podem consultar resumos. Não expomos chaves privadas do GA4/Supermetrics.
 
 ## Eventos para configurar no GTM/GA4
 | Evento no dataLayer | O que significa | Como interpretar |
@@ -30,8 +33,8 @@ A LP principal também possui o evento legado `clique_whatsapp`. Ele pode repres
 1. Confirmar que a propriedade GA4 do domínio está configurada.
 2. No [Google Tag Manager](https://tagmanager.google.com/), verificar quais tags de GA4 e acionadores estão publicados. Configurar eventos personalizados para as ações acima, se necessário.
 3. Em **Prévia/Tag Assistant** e **GA4 DebugView**, confirmar se cada ação dispara uma vez e na página correta.
-4. Conectar Google Analytics 4 no Supermetrics e selecionar a propriedade da Granilar Sul.
-5. Somente depois de confirmar dados e permissões, integrar uma fonte de relatórios ao painel privado. **Não colocar tokens privados ou credenciais GA4 no frontend.**
+4. **Concluído em 18/11/2026:** propriedade GA4 conectada ao Supermetrics; primeiro resumo manual importado para o painel.
+5. **Pendente:** configurar uma atualização recorrente segura do snapshot (por exemplo, tarefa agendada com autorização explícita). Sem isso, os dados permanecem na data indicada no painel. Nunca colocar tokens privados ou credenciais GA4 no frontend.
 
 ## Convenções comerciais
 - `lead_source` é uma origem **informada pela equipe** e pode ficar vazia. Não equivale à atribuição do GA4/Google Ads.
