@@ -257,6 +257,21 @@ window.GranilarCommercialAPI=Object.freeze({
       .select('id,number,client_name,status,items,shipping,discount,created_at,updated_at,valid_until,lead_source,next_followup_on')
       .order('created_at',{ascending:false})
       .range(start,start+limit-1);
+  },
+  async openQuote(id){
+    if(!db||!user||$('app')?.style.display==='none'){
+      return {error:{message:'Faça login com a conta autorizada.'}};
+    }
+    let record=quotes.find(q=>q.id===id);
+    if(!record){
+      const result=await db.from('quotes').select('*').eq('id',id).maybeSingle();
+      if(result.error||!result.data)return {error:{message:result.error?.message||'Orçamento não encontrado.'}};
+      record=result.data;quotes.unshift(record);
+    }
+    const tab=document.querySelector('.gs-nav-item[data-page="quote"]');
+    if(tab)tab.click();
+    openQuote(id);
+    return {data:{id:record.id,number:record.number},error:null};
   }
 });
 
