@@ -1,0 +1,19 @@
+/* Granilar Sul | Métricas verificadas do GA4 no painel interno */
+#gbi-root .gbi-traffic-tile b.gbi-traffic-value{color:#293b40;font-weight:840}
+#gbi-root .gbi-integration.gbi-connected{background:linear-gradient(115deg,#fcfefc,#f4f8f5);border-color:#d9e7dc}
+#gbi-root .gbi-integration.gbi-connected .gbi-integration-head span{background:#edf7ef;color:#426d50;border-color:#d4e8d6}
+#gbi-root .gbi-integration.gbi-unavailable .gbi-integration-head span{background:#fff6ef;color:#9a653d;border-color:#ead6c2}
+.gbi-analytics-period{font-size:11px;color:#5c6b71;line-height:1.5;font-weight:740;margin:7px 0 3px}
+.gbi-analytics-update{font-size:10px;color:#7c898a;line-height:1.5;margin:0 0 12px}
+.gbi-analytics-detail{margin-top:19px;padding-top:18px;border-top:1px solid #e2e8e4;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.gbi-analytics-group{min-width:0}
+.gbi-analytics-group h4{font-size:12px;color:#39474a;font-weight:850;margin:0 0 9px;letter-spacing:-.02em}
+.gbi-analytics-entry{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:9px;align-items:baseline;margin-top:9px}
+.gbi-analytics-entry span{font-size:11px;color:#657276;line-height:1.4;overflow-wrap:anywhere;min-width:0}
+.gbi-analytics-entry strong{font-size:11px;font-weight:850;color:#33474b;font-variant-numeric:tabular-nums}
+.gbi-analytics-rail{height:5px;margin:5px 0 2px;background:#e8eeea;border-radius:5px;overflow:hidden}
+.gbi-analytics-rail i{display:block;height:100%;background:#638d76;border-radius:5px}
+.gbi-analytics-group[data-category="pages"] .gbi-analytics-rail i{background:#a54350}
+.gbi-analytics-foot{font-size:10px;color:#808a89;line-height:1.6;margin:12px 0 0}
+.gbi-analytics-error{font-size:11px;color:#9d3645;margin:8px 0 14px;line-height:1.6}
+@media(max-width:650px){.gbi-analytics-detail{grid-template-columns:1fr;gap:15px}}
