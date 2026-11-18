@@ -92,7 +92,7 @@ header{background:rgba(251,249,245,.97);border-bottom:1px solid var(--gdr-rule);
  color:#37312F;font-size:clamp(.95rem,1.2vw,1.18rem);
  line-height:1.35;font-weight:790;letter-spacing:-.025em;
 }
-.info-band span{color:#81786F;font-size:.75rem;line-height:1.62}
+.info-band span{color:#71675E;font-size:.75rem;line-height:1.62}
 #catalogo{background:#F6F3EE}
 #catalogo .section-head h2{font-size:clamp(2.15rem,4.3vw,3.55rem)}
 .product-card{
