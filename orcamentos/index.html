@@ -64,7 +64,7 @@ tbody tr:last-child td{border-bottom:0}
 td button{padding:7px 12px;min-height:34px}
 .status-pill{display:inline-block;padding:5px 10px;background:#f0efec;color:#575b60;border-radius:999px;font-size:11px;font-weight:750;white-space:nowrap}
 .status-pill.aprovado{color:#286d50;background:#e6f4ec}
-.status-pill.enviado{color:#315b8a;background:#e5effc}
+.status-pill.enviado{color:#315b8a;background:#e5effc}.status-pill.fechado{color:#19613d;background:#dbf4e3}
 .status-pill.recusado{color:#90323b;background:#fce9eb}
 #currentUser{overflow-wrap:anywhere}
 #printArea{display:none}
@@ -157,9 +157,12 @@ td button{padding:7px 12px;min-height:34px}
 <option value="indicacao">Indicação</option>
 <option value="whatsapp">WhatsApp direto</option>
 <option value="outros">Outros</option>
-</select><small class="muted">Informada pela equipe; não é atribuição automática.</small></div>
+</select><small class="muted">Identifique a origem do cliente. Para campanhas, cole abaixo a linha que veio no WhatsApp.</small></div>
+<div style="grid-column:1/-1"><label for="attributionMessage">Identificação do anúncio recebida no WhatsApp (opcional)</label><textarea id="attributionMessage" rows="2" placeholder="Origem do contato: Google Ads | Campanha: granilar_teste10d | Anúncio/link: tradicao"></textarea><small class="muted">Cole somente a linha de origem. A mensagem completa não será guardada; o sistema extrai apenas os códigos da campanha e do anúncio.</small><div class="inline-alert" id="attributionFeedback" role="status" aria-live="polite"></div></div>
+<div><label for="campaignTag">Código da campanha</label><input id="campaignTag" maxlength="70" autocomplete="off" placeholder="Ex.: granilar_teste10d"></div>
+<div><label for="creativeTag">Código do anúncio ou link</label><input id="creativeTag" maxlength="70" autocomplete="off" placeholder="Ex.: tradicao"></div>
 <div><label for="nextFollowup">Próximo contato (opcional)</label><input id="nextFollowup" type="date"><small class="muted">Lembrete visual no painel, sem envio automático.</small></div>
-</div><h3>Itens do projeto</h3><p class="section-help">Descreva as peças, materiais, medidas e o preço combinado. Informe o valor unitário de cada peça ou serviço. Para quantidades fracionadas, use vírgula: 1,5.</p><div id="items"></div><button class="light" id="addItem">+ Adicionar item</button><div class="grid four" style="margin-top:16px"><div><label>Frete (R$)</label><input id="shipping" type="text" inputmode="decimal" placeholder="0,00" value="0,00"></div><div><label>Desconto (R$)</label><input id="discount" type="text" inputmode="decimal" placeholder="0,00" value="0,00"></div><div><label>Status</label><select id="status"><option value="rascunho">Rascunho</option><option value="enviado">Enviado</option><option value="aprovado">Aprovado</option><option value="recusado">Recusado</option></select></div><div><label>Forma e condições de pagamento</label><input id="paymentTerms" placeholder="Ex.: Pix à vista ou cartão em até 5x"></div><div><label for="validUntil">Validade da proposta</label><input id="validUntil" type="date" aria-label="Validade da proposta"><span class="muted">Opcional; aparece no PDF.</span></div><div><label for="deliveryTerms">Prazo de entrega / execução</label><input id="deliveryTerms" type="text" placeholder="Ex.: 20 dias úteis após aprovação"></div></div><div style="margin-top:12px"><label>Observações</label><textarea id="notes"></textarea></div><div class="summary-card" aria-live="polite"><div class="summary-line"><span>Subtotal das peças</span><strong id="subtotalItems">R$ 0,00</strong></div><div class="summary-line"><span>Frete</span><strong id="freightPreview">R$ 0,00</strong></div><div class="summary-line"><span>Desconto</span><strong id="discountPreview">− R$ 0,00</strong></div><div class="summary-line grand"><span>Valor final</span><span class="total" id="total">R$ 0,00</span></div></div><p class="inline-alert" id="discountAlert"></p><div class="actions"><button id="save">Salvar orçamento</button><button class="secondary" id="print">Visualizar / salvar PDF</button></div></section><section class="panel" id="historico"><div class="row"><h2>Orçamentos salvos</h2><button class="light" id="refresh">Atualizar</button></div><p class="section-help" id="historyCount">Orçamentos criados pela equipe, do mais recente ao mais antigo.</p><div class="history-tools"><label for="searchQuotes">Buscar por cliente ou número</label><input id="searchQuotes" type="search" placeholder="Digite o cliente ou o nº do orçamento"></div><div class="table-scroll"><table><thead><tr><th>Nº</th><th>Cliente</th><th>Status</th><th>Valor</th><th>Data</th><th>Ações</th></tr></thead><tbody id="history"></tbody></table></div></section><section class="panel" id="clientes"><div class="row"><h2>Cadastro de clientes</h2><button class="light" id="clearClient" type="button">Novo cliente</button></div><div class="grid"><div><label>Nome *</label><input id="customerName"></div><div><label>WhatsApp</label><input id="customerPhone"></div><div><label>E-mail</label><input id="customerEmail" type="email"></div><div><label>Endereço</label><input id="customerAddress"></div></div><div class="actions"><button id="saveClient" type="button">Salvar cliente</button></div><div class="table-scroll" style="margin-top:16px"><table><thead><tr><th>Cliente</th><th>Telefone</th><th>E-mail</th><th>Ações</th></tr></thead><tbody id="customers"></tbody></table></div></section></div></main><div id="printArea"></div><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.119.0/dist/umd/supabase.min.js"></script><script>
+</div><h3>Itens do projeto</h3><p class="section-help">Descreva as peças, materiais, medidas e o preço combinado. Informe o valor unitário de cada peça ou serviço. Para quantidades fracionadas, use vírgula: 1,5.</p><div id="items"></div><button class="light" id="addItem">+ Adicionar item</button><div class="grid four" style="margin-top:16px"><div><label>Frete (R$)</label><input id="shipping" type="text" inputmode="decimal" placeholder="0,00" value="0,00"></div><div><label>Desconto (R$)</label><input id="discount" type="text" inputmode="decimal" placeholder="0,00" value="0,00"></div><div><label>Status</label><select id="status"><option value="rascunho">Rascunho</option><option value="enviado">Enviado</option><option value="aprovado">Aprovado (sem confirmar venda)</option><option value="fechado">Venda fechada</option><option value="recusado">Recusado</option></select></div><div><label>Forma e condições de pagamento</label><input id="paymentTerms" placeholder="Ex.: Pix à vista ou cartão em até 5x"></div><div><label for="validUntil">Validade da proposta</label><input id="validUntil" type="date" aria-label="Validade da proposta"><span class="muted">Opcional; aparece no PDF.</span></div><div><label for="deliveryTerms">Prazo de entrega / execução</label><input id="deliveryTerms" type="text" placeholder="Ex.: 20 dias úteis após aprovação"></div></div><div style="margin-top:12px"><label>Observações</label><textarea id="notes"></textarea></div><div class="summary-card" aria-live="polite"><div class="summary-line"><span>Subtotal das peças</span><strong id="subtotalItems">R$ 0,00</strong></div><div class="summary-line"><span>Frete</span><strong id="freightPreview">R$ 0,00</strong></div><div class="summary-line"><span>Desconto</span><strong id="discountPreview">− R$ 0,00</strong></div><div class="summary-line grand"><span>Valor final</span><span class="total" id="total">R$ 0,00</span></div></div><p class="inline-alert" id="discountAlert"></p><div class="actions"><button id="save">Salvar orçamento</button><button class="secondary" id="print">Visualizar / salvar PDF</button></div></section><section class="panel" id="historico"><div class="row"><h2>Orçamentos salvos</h2><button class="light" id="refresh">Atualizar</button></div><p class="section-help" id="historyCount">Orçamentos criados pela equipe, do mais recente ao mais antigo.</p><div class="history-tools"><label for="searchQuotes">Buscar por cliente ou número</label><input id="searchQuotes" type="search" placeholder="Digite o cliente ou o nº do orçamento"></div><div class="table-scroll"><table><thead><tr><th>Nº</th><th>Cliente</th><th>Status</th><th>Valor</th><th>Data</th><th>Ações</th></tr></thead><tbody id="history"></tbody></table></div></section><section class="panel" id="clientes"><div class="row"><h2>Cadastro de clientes</h2><button class="light" id="clearClient" type="button">Novo cliente</button></div><div class="grid"><div><label>Nome *</label><input id="customerName"></div><div><label>WhatsApp</label><input id="customerPhone"></div><div><label>E-mail</label><input id="customerEmail" type="email"></div><div><label>Endereço</label><input id="customerAddress"></div></div><div class="actions"><button id="saveClient" type="button">Salvar cliente</button></div><div class="table-scroll" style="margin-top:16px"><table><thead><tr><th>Cliente</th><th>Telefone</th><th>E-mail</th><th>Ações</th></tr></thead><tbody id="customers"></tbody></table></div></section></div></main><div id="printArea"></div><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.119.0/dist/umd/supabase.min.js"></script><script>
 // Chave publica: pode estar no frontend. Nunca adicionar service_role ou secret aqui.
 window.GRANILAR_CONFIG = {
   supabaseUrl: 'https://jmkygdlfmgqnuyjpykva.supabase.co',
@@ -218,20 +221,39 @@ $('total').textContent=money(Math.max(0,balance)/100);
 $('discountAlert').textContent=balance<0?'Atenção: desconto maior que subtotal + frete. Corrija antes de salvar.':'';
 return Math.max(0,balance)/100;
 }
+function normalizedTag(value){const s=String(value||'').trim();return /^[a-zA-Z0-9_-]{1,70}$/.test(s)?s:''}
+function parseAttribution(text){
+ const match=String(text||'').match(/Origem do contato:\s*Google Ads\s*\|\s*Campanha:\s*([a-zA-Z0-9_-]{1,70})(?:\s*\|\s*Anúncio\/link:\s*([a-zA-Z0-9_-]{1,70}))?/i);
+ return match?{campaign:match[1],creative:match[2]||''}:null;
+}
+function applyAttribution(){
+ const raw=$('attributionMessage').value;
+ const match=parseAttribution(raw);
+ const msg=$('attributionFeedback');
+ if(!raw.trim()){msg.textContent='';return}
+ if(!match){msg.textContent='Não encontrei o padrão da origem do Google Ads. Copie a linha que começa com “Origem do contato: Google Ads”.';return}
+ $('leadSource').value='google_ads';
+ $('campaignTag').value=match.campaign;
+ $('creativeTag').value=match.creative;
+ msg.textContent='Origem reconhecida: campanha '+match.campaign+(match.creative?' · anúncio '+match.creative:'')+'. Clique em Salvar orçamento para registrar.';
+}
 function reset(){
  editing=null;$("formTitle").textContent="Novo orçamento";
- ["clientName","clientPhone","clientEmail","projectAddress","paymentTerms","notes","validUntil","deliveryTerms","leadSource","nextFollowup"].forEach(k=>$(k).value="");
+ ["clientName","clientPhone","clientEmail","projectAddress","paymentTerms","notes","validUntil","deliveryTerms","leadSource","nextFollowup","attributionMessage","campaignTag","creativeTag"].forEach(k=>$(k).value="");$("attributionFeedback").textContent="";
  $("shipping").value="0,00";$("discount").value="0,00";$("status").value="rascunho";$("clientPicker").value="";
  $("items").replaceChildren();itemTemplate();msg("");
 }
 function data(){
+ const current=editing?quotes.find(q=>q.id===editing):null;
+ const status=$("status").value;
+ const campaign=normalizedTag($("campaignTag").value),creative=normalizedTag($("creativeTag").value);
  return {
   client_id:$("clientPicker").value||null,
   client_name:$("clientName").value.trim(),
   client_phone:$("clientPhone").value.trim(),
   client_email:$("clientEmail").value.trim(),
   project_address:$("projectAddress").value.trim(),
-  status:$("status").value,
+  status,
   items:getItems(),
   shipping:num($("shipping").value),
   discount:num($("discount").value),
@@ -239,11 +261,15 @@ function data(){
   notes:$("notes").value.trim(),
   valid_until:$("validUntil").value||null,
   delivery_terms:$("deliveryTerms").value.trim(),
-  lead_source:$("leadSource").value||null,
+  lead_source:campaign?'google_ads':($("leadSource").value||null),
+  utm_campaign:campaign||null,
+  utm_content:campaign?(creative||null):null,
+  sent_at:status==='enviado'?(current?.sent_at||new Date().toISOString()):(current?.sent_at||null),
+  closed_at:status==='fechado'?(current?.closed_at||new Date().toISOString()):null,
   next_followup_on:$("nextFollowup").value||null
  }
 }
-async function save(){const q=data();if(!q.client_name){msg('Informe o nome do cliente.');return}if(!q.items.length||q.items.some(i=>!i.description||i.quantity<=0||i.price<=0)){msg('Preencha descrição, quantidade e valor unitário maior que zero em cada item.');return}if(toCents(q.discount)>q.items.reduce((s,i)=>s+lineCents(i.quantity,i.price),0)+toCents(q.shipping)){msg('Desconto maior que o valor do orçamento.');return}const btn=$('save');btn.disabled=true;try{const result=editing?await db.from('quotes').update(q).eq('id',editing).select().single():await db.from('quotes').insert({...q,created_by:user.id}).select().single();if(result.error)throw result.error;msg('Orçamento salvo com sucesso.');editing=result.data.id;await load();$('formTitle').textContent='Editando orçamento #'+result.data.number}catch(e){msg('Não foi possível salvar: '+e.message)}finally{btn.disabled=false}}
+async function save(){const q=data();if($("campaignTag").value.trim()&&!normalizedTag($("campaignTag").value)){msg('Código de campanha inválido. Use apenas letras, números, _ e -, até 70 caracteres.');return}if($("creativeTag").value.trim()&&!normalizedTag($("creativeTag").value)){msg('Código de anúncio inválido. Use apenas letras, números, _ e -, até 70 caracteres.');return}if(!q.client_name){msg('Informe o nome do cliente.');return}if(!q.items.length||q.items.some(i=>!i.description||i.quantity<=0||i.price<=0)){msg('Preencha descrição, quantidade e valor unitário maior que zero em cada item.');return}if(toCents(q.discount)>q.items.reduce((s,i)=>s+lineCents(i.quantity,i.price),0)+toCents(q.shipping)){msg('Desconto maior que o valor do orçamento.');return}const btn=$('save');btn.disabled=true;try{const result=editing?await db.from('quotes').update(q).eq('id',editing).select().single():await db.from('quotes').insert({...q,created_by:user.id}).select().single();if(result.error)throw result.error;msg('Orçamento salvo com sucesso.');editing=result.data.id;await load();$('formTitle').textContent='Editando orçamento #'+result.data.number}catch(e){msg('Não foi possível salvar: '+e.message)}finally{btn.disabled=false}}
 function quoteValue(q){const items=Array.isArray(q.items)?q.items:[];const subtotal=items.reduce((s,i)=>s+lineCents(i.quantity,i.price),0);return Math.max(0,subtotal+toCents(q.shipping)-toCents(q.discount))/100}
 
 /* Consulta protegida para o painel comercial. Usa a sessão e as regras RLS existentes. */
@@ -256,7 +282,7 @@ window.GranilarCommercialAPI=Object.freeze({
     const start=Math.max(0,Math.floor(Number(offset)||0));
     const limit=Math.max(1,Math.min(400,Math.floor(Number(pageSize)||400)));
     return db.from('quotes')
-      .select('id,number,client_name,status,items,shipping,discount,created_at,updated_at,valid_until,lead_source,next_followup_on')
+      .select('id,number,client_name,status,items,shipping,discount,created_at,updated_at,valid_until,lead_source,utm_campaign,utm_content,sent_at,closed_at,next_followup_on')
       .order('created_at',{ascending:false})
       .range(start,start+limit-1);
   },
@@ -294,7 +320,7 @@ const term=($('searchQuotes').value||'').trim().toLocaleLowerCase('pt-BR');
 const matched=quotes.filter(q=>String(q.number).includes(term)||String(q.client_name||'').toLocaleLowerCase('pt-BR').includes(term));
 $('historyCount').textContent=matched.length+' de '+quotes.length+' orçamento(s) no histórico recente';
 $('history').replaceChildren();
-const labels={rascunho:'Rascunho',enviado:'Enviado',aprovado:'Aprovado',recusado:'Recusado'};
+const labels={rascunho:'Rascunho',enviado:'Enviado',aprovado:'Aprovado',fechado:'Venda fechada',recusado:'Recusado'};
 matched.forEach(q=>{
 const tr=document.createElement('tr');
 const values=['#'+q.number,q.client_name,labels[q.status]||q.status,money(quoteValue(q)),new Date(q.created_at).toLocaleDateString('pt-BR')];
@@ -318,14 +344,14 @@ window.dispatchEvent(new Event('granilar:quotes-updated'));
 function openQuote(id){
  const q=quotes.find(x=>x.id===id);if(!q)return;
  editing=q.id;$("formTitle").textContent="Editando orçamento #"+q.number;
- const fields={clientPicker:q.client_id||"",clientName:q.client_name,clientPhone:q.client_phone,clientEmail:q.client_email,projectAddress:q.project_address,paymentTerms:q.payment_terms,notes:q.notes,shipping:q.shipping,discount:q.discount,status:q.status,validUntil:q.valid_until||"",deliveryTerms:q.delivery_terms||"",leadSource:q.lead_source||"",nextFollowup:q.next_followup_on||""};
+ const fields={clientPicker:q.client_id||"",clientName:q.client_name,clientPhone:q.client_phone,clientEmail:q.client_email,projectAddress:q.project_address,paymentTerms:q.payment_terms,notes:q.notes,shipping:q.shipping,discount:q.discount,status:q.status,validUntil:q.valid_until||"",deliveryTerms:q.delivery_terms||"",leadSource:q.lead_source||"",campaignTag:q.utm_campaign||"",creativeTag:q.utm_content||"",nextFollowup:q.next_followup_on||""};
  Object.entries(fields).forEach(([k,v])=>$(k).value=(k==="shipping"||k==="discount")?brInput(v??0):(v??""));
- $("items").replaceChildren();(q.items?.length?q.items:[{}]).forEach(itemTemplate);
+ $("attributionMessage").value="";$("attributionFeedback").textContent="";$("items").replaceChildren();(q.items?.length?q.items:[{}]).forEach(itemTemplate);
  calc();$("orcamento").scrollIntoView({behavior:"smooth"});
 }
 function duplicateQuote(id){
  const q=quotes.find(x=>x.id===id);if(!q)return;
- openQuote(id);editing=null;$("status").value="rascunho";
+ openQuote(id);editing=null;$("status").value="rascunho";$("leadSource").value="";$("campaignTag").value="";$("creativeTag").value="";$("attributionMessage").value="";$("attributionFeedback").textContent="";
  $("formTitle").textContent="Nova proposta — cópia do nº "+q.number;
  msg("Cópia preparada. Revise os valores e clique em Salvar para criar um novo número.");
 }
@@ -509,6 +535,6 @@ $('clientName').addEventListener('input',()=>{
  const client=clients.find(c=>c.id===selected);
  if(client&&$('clientName').value.trim()!==client.full_name)$('clientPicker').value='';
 });
-$('saveClient').onclick=saveClient;$('clearClient').onclick=clearClient;$('searchQuotes').addEventListener('input',renderHistory);['email','password'].forEach(k=>$(k).addEventListener('keydown',e=>{if(e.key==='Enter')$('signIn').click()}));['shipping','discount'].forEach(k=>{$(k).addEventListener('input',calc);$(k).addEventListener('blur',()=>{$(k).value=brInput($(k).value);calc()})});reset();session();})();
+$('saveClient').onclick=saveClient;$('clearClient').onclick=clearClient;$('searchQuotes').addEventListener('input',renderHistory);$('attributionMessage').addEventListener('input',applyAttribution);['email','password'].forEach(k=>$(k).addEventListener('keydown',e=>{if(e.key==='Enter')$('signIn').click()}));['shipping','discount'].forEach(k=>{$(k).addEventListener('input',calc);$(k).addEventListener('blur',()=>{$(k).value=brInput($(k).value);calc()})});reset();session();})();
 </script><script src="./interface-v6.js?v=20261117b" defer></script><script src="./interface-v7.js?v=20261117a" defer></script>
 <script src="./inteligencia-v1.js?v=20261118a" defer></script><script src="./analytics-ga4-v1.js?v=20261118a" defer></script></body></html>
