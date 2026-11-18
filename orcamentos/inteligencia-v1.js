@@ -8,7 +8,7 @@
  const money=new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL',maximumFractionDigits:2});
  const integer=new Intl.NumberFormat('pt-BR',{maximumFractionDigits:0});
  const sourceNames={google_ads:'Google Ads',site:'Site / orgânico',instagram:'Instagram',indicacao:'Indicação',whatsapp:'WhatsApp direto',outros:'Outros'};
- const statusNames={rascunho:'Rascunho',enviado:'Enviado',aprovado:'Aprovado',fechado:'Venda fechada',recusado:'Recusado'};
+ const statusNames={rascunho:'Rascunho',enviado:'Enviado',em_negociacao:'Em negociação',sem_resposta:'Aguardando retorno',aprovado:'Aprovado',fechado:'Venda fechada',recusado:'Recusado'};
  const pageSize=400,maxPages=8;
  let allRows=[],reloading=false,queued=false,initialized=false,sampled=false,everLoaded=false;
  const $=id=>document.getElementById(id);
@@ -71,7 +71,7 @@
      <div class="gbi-kpis">
        <article class="gbi-kpi" data-tone="neutral"><span class="gbi-icon" aria-hidden="true">▤</span><small>Orçamentos cadastrados</small><strong id="gbi-total">—</strong><span class="gbi-unit">No período selecionado</span></article>
        <article class="gbi-kpi"><span class="gbi-icon" aria-hidden="true">↗</span><small>Enviados sem decisão</small><strong id="gbi-sent">—</strong><span class="gbi-unit">Propostas em acompanhamento</span></article>
-       <article class="gbi-kpi" data-tone="blue"><span class="gbi-icon" aria-hidden="true">R$</span><small>Valor em negociação</small><strong id="gbi-pipeline-value">—</strong><span class="gbi-unit">Somente propostas com status enviado</span></article>
+       <article class="gbi-kpi" data-tone="blue"><span class="gbi-icon" aria-hidden="true">R$</span><small>Valor em negociação</small><strong id="gbi-pipeline-value">—</strong><span class="gbi-unit">Propostas com negociação em aberto</span></article>
        <article class="gbi-kpi" data-tone="neutral"><span class="gbi-icon" aria-hidden="true">✓</span><small>Vendas fechadas</small><strong id="gbi-approved">—</strong><span class="gbi-unit" id="gbi-approved-sub">Somente confirmadas pela equipe</span></article>
      </div>
      <div class="gbi-columns">
@@ -128,7 +128,7 @@
  function renderBars(quotes){
    const container=$('gbi-pipeline-bars');container.replaceChildren();
    const total=quotes.length||1;
-   for(const status of ['rascunho','enviado','aprovado','fechado','recusado']){
+   for(const status of ['rascunho','enviado','em_negociacao','sem_resposta','aprovado','fechado','recusado']){
      const n=quotes.filter(q=>q.status===status).length;
      const row=document.createElement('div');row.className='gbi-bar-line';row.dataset.kind=status;
      const name=document.createElement('span');name.textContent=statusNames[status];
@@ -171,7 +171,7 @@
      const key=q.utm_campaign+' / '+(q.utm_content||'sem_variante');
      const item=groups.get(key)||{quotes:0,sent:0,sales:0,salesValue:0};
      item.quotes++;
-     if(['enviado','aprovado','fechado'].includes(q.status))item.sent++;
+     if(['enviado','em_negociacao','sem_resposta','aprovado','fechado','recusado'].includes(q.status)||q.sent_at)item.sent++;
      if(q.status==='fechado'){item.sales++;item.salesValue+=totalValue(q)}
      groups.set(key,item);
    }
@@ -187,9 +187,9 @@
  function renderTodo(){
    const list=$('gbi-todo');list.replaceChildren();
    const today=todayISO();
-   const open=allRows.filter(q=>q.status==='rascunho'||q.status==='enviado');
+   const open=allRows.filter(q=>['rascunho','enviado','em_negociacao','sem_resposta'].includes(q.status));
    const next=open.filter(q=>q.next_followup_on);
-   const missing=open.filter(q=>q.status==='enviado'&&!q.next_followup_on);
+   const missing=open.filter(q=>q.status!=='rascunho'&&!q.next_followup_on);
    const sorted=[...next].sort((a,b)=>String(a.next_followup_on).localeCompare(String(b.next_followup_on)))
      .concat(missing.sort((a,b)=>dateValue(b.updated_at)-dateValue(a.updated_at)));
    if(!sorted.length){empty(list,'Nenhuma proposta aguardando acompanhamento. Ao enviar um orçamento, defina a data do próximo contato para organizar a agenda.');return}
@@ -225,11 +225,11 @@
  }
  function render(){
    if(!initialized||!everLoaded)return;
-   const rows=filterByRange(allRows),sent=rows.filter(q=>q.status==='enviado');
+   const rows=filterByRange(allRows),sent=rows.filter(q=>['enviado','em_negociacao','sem_resposta','aprovado','fechado','recusado'].includes(q.status)||q.sent_at),pipeline=rows.filter(q=>['enviado','em_negociacao','sem_resposta'].includes(q.status));
    const approved=rows.filter(q=>q.status==='fechado');
    setText('gbi-total',integer.format(rows.length));
    setText('gbi-sent',integer.format(sent.length));
-   setText('gbi-pipeline-value',money.format(sent.reduce((sum,q)=>sum+totalValue(q),0)));
+   setText('gbi-pipeline-value',money.format(pipeline.reduce((sum,q)=>sum+totalValue(q),0)));
    setText('gbi-approved',integer.format(approved.length));
    setText('gbi-approved-sub',money.format(approved.reduce((sum,q)=>sum+totalValue(q),0))+' em vendas fechadas registradas');
    setText('gbi-total-count',integer.format(rows.length)+' propostas');
