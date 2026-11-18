@@ -176,3 +176,90 @@
 @media(prefers-reduced-motion:reduce){
  #galeria .gallery-grid .tile img.surface{transition:none!important;transform:none!important}
 }
+
+
+/* Auditoria Humanizer + consistência visual dos materiais (18/11/2026).
+   O mesmo cartão, fotografia e legenda em qualquer dispositivo.
+   Apenas a quantidade de colunas responde ao espaço disponível. */
+#materiais .material-grid{
+  width:min(100%,1240px);
+  margin-inline:auto;
+  padding-inline:clamp(16px,3vw,38px);
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:clamp(12px,1.5vw,20px);
+}
+#materiais .material-card{
+  display:flex;
+  flex-direction:column;
+  min-width:0;
+  height:auto;
+  aspect-ratio:auto!important;
+  border:1px solid #dde1db!important;
+  border-radius:6px;
+  overflow:hidden;
+  background:#fff;
+  box-shadow:none!important;
+  isolation:isolate;
+}
+#materiais .material-card img{
+  display:block;
+  position:relative!important;
+  inset:auto!important;
+  width:100%!important;
+  height:auto!important;
+  aspect-ratio:4/3;
+  object-fit:cover;
+  flex:none;
+}
+#materiais .material-card .m-label{
+  position:relative!important;
+  inset:auto!important;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  flex:1;
+  min-height:76px!important;
+  padding:14px 15px!important;
+  background:#fff!important;
+  border:0!important;
+  box-shadow:none!important;
+  text-align:left;
+}
+#materiais .material-card .m-name{
+  color:#26343a!important;
+  font-family:Inter,Arial,sans-serif!important;
+  font-size:clamp(.85rem,1.1vw,.98rem)!important;
+  font-weight:750!important;
+  line-height:1.35;
+  letter-spacing:-.015em!important;
+  text-transform:none!important;
+  overflow-wrap:anywhere;
+}
+#materiais .material-card .m-spec{
+  color:#596863!important;
+  font-family:Inter,Arial,sans-serif!important;
+  font-size:.75rem!important;
+  letter-spacing:0!important;
+  line-height:1.5;
+  margin-top:4px;
+}
+#materiais .material-card .gs-material-preview{bottom:auto;height:auto;aspect-ratio:4/3;z-index:2}
+#materiais .material-card .gs-compare-btn{z-index:5}
+#materiais .material-card.gs-material-selected{outline:3px solid #902f3e;outline-offset:2px;box-shadow:none!important}
+@media(max-width:980px){
+  #materiais .material-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:700px){
+  #materiais .material-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:420px){
+  #materiais .material-grid{grid-template-columns:minmax(0,1fr)}
+  #materiais .material-card img{aspect-ratio:16/10}
+  #materiais .material-card .gs-material-preview{aspect-ratio:16/10}
+}
+#materiais .material-card .gs-material-preview:focus-visible,
+#materiais .material-card .gs-compare-btn:focus-visible{
+  outline:3px solid #902f3e;
+  outline-offset:-3px;
+}
