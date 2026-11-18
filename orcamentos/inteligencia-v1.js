@@ -8,7 +8,7 @@
  const money=new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL',maximumFractionDigits:2});
  const integer=new Intl.NumberFormat('pt-BR',{maximumFractionDigits:0});
  const sourceNames={google_ads:'Google Ads',site:'Site / orgânico',instagram:'Instagram',indicacao:'Indicação',whatsapp:'WhatsApp direto',outros:'Outros'};
- const statusNames={rascunho:'Rascunho',enviado:'Enviado',aprovado:'Aprovado',recusado:'Recusado'};
+ const statusNames={rascunho:'Rascunho',enviado:'Enviado',aprovado:'Aprovado',fechado:'Venda fechada',recusado:'Recusado'};
  const pageSize=400,maxPages=8;
  let allRows=[],reloading=false,queued=false,initialized=false,sampled=false,everLoaded=false;
  const $=id=>document.getElementById(id);
@@ -72,7 +72,7 @@
        <article class="gbi-kpi" data-tone="neutral"><span class="gbi-icon" aria-hidden="true">▤</span><small>Orçamentos cadastrados</small><strong id="gbi-total">—</strong><span class="gbi-unit">No período selecionado</span></article>
        <article class="gbi-kpi"><span class="gbi-icon" aria-hidden="true">↗</span><small>Enviados sem decisão</small><strong id="gbi-sent">—</strong><span class="gbi-unit">Propostas em acompanhamento</span></article>
        <article class="gbi-kpi" data-tone="blue"><span class="gbi-icon" aria-hidden="true">R$</span><small>Valor em negociação</small><strong id="gbi-pipeline-value">—</strong><span class="gbi-unit">Somente propostas com status enviado</span></article>
-       <article class="gbi-kpi" data-tone="neutral"><span class="gbi-icon" aria-hidden="true">✓</span><small>Propostas aprovadas</small><strong id="gbi-approved">—</strong><span class="gbi-unit" id="gbi-approved-sub">Aprovação não significa pagamento</span></article>
+       <article class="gbi-kpi" data-tone="neutral"><span class="gbi-icon" aria-hidden="true">✓</span><small>Vendas fechadas</small><strong id="gbi-approved">—</strong><span class="gbi-unit" id="gbi-approved-sub">Somente confirmadas pela equipe</span></article>
      </div>
      <div class="gbi-columns">
        <section class="gbi-card gbi-col-5" aria-labelledby="gbi-pipeline-title">
@@ -89,7 +89,12 @@
          <div id="gbi-sources" class="gbi-sources"><div class="gbi-empty">Carregando origens...</div></div>
          <p class="gbi-disclaimer">Não é atribuição automática de campanhas. Preencha “Origem do contato” no orçamento para acompanhar esta distribuição.</p>
        </section>
-       <section class="gbi-card gbi-col-6" aria-labelledby="gbi-digital-title">
+       <section class="gbi-card gbi-col-6" aria-labelledby="gbi-campaign-title">
+ <div class="gbi-cardhead"><div><h3 id="gbi-campaign-title" class="gbi-section-title">Resultados por campanha</h3><p class="gbi-description">Orçamentos com origem informada pela equipe; vendas apenas com status “Venda fechada”.</p></div></div>
+ <div id="gbi-campaign-results" class="gbi-sources"></div>
+ <p class="gbi-disclaimer">Os anúncios são identificados pelo código da mensagem do WhatsApp. Sem identificação, a venda não é atribuída ao Google Ads.</p>
+ </section>
+ <section class="gbi-card gbi-col-6" aria-labelledby="gbi-digital-title">
          <div class="gbi-cardhead"><div><h3 id="gbi-digital-title" class="gbi-section-title">Resultados do site</h3><p class="gbi-description">Acompanhe a etapa digital separadamente.</p></div></div>
          <div class="gbi-integration">
            <div class="gbi-integration-head"><strong>Google Analytics 4</strong><span>Integração de relatórios pendente</span></div>
@@ -123,7 +128,7 @@
  function renderBars(quotes){
    const container=$('gbi-pipeline-bars');container.replaceChildren();
    const total=quotes.length||1;
-   for(const status of ['rascunho','enviado','aprovado','recusado']){
+   for(const status of ['rascunho','enviado','aprovado','fechado','recusado']){
      const n=quotes.filter(q=>q.status===status).length;
      const row=document.createElement('div');row.className='gbi-bar-line';row.dataset.kind=status;
      const name=document.createElement('span');name.textContent=statusNames[status];
@@ -132,8 +137,8 @@
      const count=document.createElement('strong');count.textContent=integer.format(n);
      track.append(fill);row.append(name,track,count);container.append(row);
    }
-   const decided=quotes.filter(q=>q.status==='aprovado'||q.status==='recusado');
-   const approved=decided.filter(q=>q.status==='aprovado').length;
+   const decided=quotes.filter(q=>['aprovado','fechado','recusado'].includes(q.status));
+   const approved=decided.filter(q=>q.status==='aprovado'||q.status==='fechado').length;
    setText('gbi-rate',decided.length?Math.round(approved/decided.length*100)+'%':'—');
  }
  function renderSources(quotes){
@@ -156,6 +161,28 @@
  }
  function empty(container,message){
    const e=document.createElement('div');e.className='gbi-empty';e.textContent=message;container.append(e);
+ }
+ function renderCampaigns(quotes){
+   const container=$('gbi-campaign-results');if(!container)return;container.replaceChildren();
+   const identified=quotes.filter(q=>q.lead_source==='google_ads'&&q.utm_campaign);
+   if(!identified.length){empty(container,'Nenhum orçamento vinculado a uma campanha neste período. Cole a origem do WhatsApp no cadastro.');return}
+   const groups=new Map();
+   for(const q of identified){
+     const key=q.utm_campaign+' / '+(q.utm_content||'sem_variante');
+     const item=groups.get(key)||{quotes:0,sent:0,sales:0,salesValue:0};
+     item.quotes++;
+     if(['enviado','aprovado','fechado'].includes(q.status))item.sent++;
+     if(q.status==='fechado'){item.sales++;item.salesValue+=totalValue(q)}
+     groups.set(key,item);
+   }
+   const ordered=[...groups.entries()].sort((a,b)=>b[1].sales-a[1].sales||b[1].sent-a[1].sent);
+   for(const [key,stat] of ordered){
+     const row=document.createElement('div');row.className='gbi-source-row';row.style.display='block';
+     const name=document.createElement('strong');name.textContent=key;
+     const detail=document.createElement('p');detail.className='gbi-description';
+     detail.textContent=stat.quotes+' cadastrado(s) · '+stat.sent+' avançado(s) · '+stat.sales+' venda(s) fechada(s) · '+money.format(stat.salesValue)+' em vendas registradas';
+     row.append(name,detail);container.append(row);
+   }
  }
  function renderTodo(){
    const list=$('gbi-todo');list.replaceChildren();
@@ -199,17 +226,17 @@
  function render(){
    if(!initialized||!everLoaded)return;
    const rows=filterByRange(allRows),sent=rows.filter(q=>q.status==='enviado');
-   const approved=rows.filter(q=>q.status==='aprovado');
+   const approved=rows.filter(q=>q.status==='fechado');
    setText('gbi-total',integer.format(rows.length));
    setText('gbi-sent',integer.format(sent.length));
    setText('gbi-pipeline-value',money.format(sent.reduce((sum,q)=>sum+totalValue(q),0)));
    setText('gbi-approved',integer.format(approved.length));
-   setText('gbi-approved-sub',money.format(approved.reduce((sum,q)=>sum+totalValue(q),0))+' em propostas aprovadas');
+   setText('gbi-approved-sub',money.format(approved.reduce((sum,q)=>sum+totalValue(q),0))+' em vendas fechadas registradas');
    setText('gbi-total-count',integer.format(rows.length)+' propostas');
    setText('gbi-scope',sampled?
      'Foram analisadas até '+integer.format(maxPages*pageSize)+' propostas mais recentes. Os indicadores podem estar incompletos; consulte a base integral para um fechamento definitivo.':
-     'Valores de propostas, não faturamento. A taxa de aprovação considera apenas propostas com decisão; visitantes dependem de conexão ao GA4.');
-   renderBars(rows);renderSources(rows);renderTodo();
+     'Valores de propostas e vendas marcadas pela equipe, não faturamento ou pagamento confirmado. A taxa de aprovação considera apenas propostas com decisão; visitantes dependem do GA4.');
+   renderBars(rows);renderSources(rows);renderCampaigns(rows);renderTodo();
  }
  async function refresh(){
    if(reloading){queued=true;return}
