@@ -273,6 +273,18 @@ window.GranilarCommercialAPI=Object.freeze({
     if(tab)tab.click();
     openQuote(id);
     return {data:{id:record.id,number:record.number},error:null};
+  },
+  async analyticsSnapshot(){
+    const app=$('app');
+    if(!db||!user||!app||app.style.display==='none'){
+      return {data:null,error:{message:'Entre com uma conta autorizada para consultar as métricas.'}};
+    }
+    return db.from('analytics_snapshots')
+      .select('property_id,source,range_start,range_end,captured_at,active_users,sessions,page_views,whatsapp_clicks,quote_starts,event_counts,page_breakdown,channel_breakdown')
+      .eq('property_id','549545009')
+      .order('range_end',{ascending:false})
+      .order('captured_at',{ascending:false})
+      .limit(1).maybeSingle();
   }
 });
 
