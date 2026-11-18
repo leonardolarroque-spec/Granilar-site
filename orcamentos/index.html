@@ -125,7 +125,7 @@ td button{padding:7px 12px;min-height:34px}
 }
 </style><link rel="stylesheet" href="./interface-v6.css?v=20261117b"><link rel="stylesheet" href="./interface-v7.css?v=20261117a">
 <link rel="stylesheet" href="./inteligencia-v1.css?v=20261118a"><link rel="stylesheet" href="./analytics-ga4-v1.css?v=20261118a">
-<link rel="stylesheet" href="./design-review.css?v=20261118r1"></head><body><header><div class="brand-line">GRANILAR SUL</div><small>Gestão de orçamentos • Qualidade, Compromisso, Confiança • 28 anos</small></header><main><div id="message" role="status"></div><section class="panel" id="login"><h2>Acesso à equipe</h2><p class="muted">Use seu e-mail e senha da equipe para entrar com segurança. Seus orçamentos ficam salvos e sincronizados.</p><label>E-mail<input id="email" type="email" autocomplete="username"></label><br><label>Senha<input id="password" type="password" autocomplete="current-password"></label><div class="actions"><button id="signIn">Entrar</button><button type="button" class="light" id="forgotPassword">Esqueci minha senha</button><button class="light" id="signUp" type="button" hidden aria-hidden="true" tabindex="-1">Criar acesso</button></div><p class="muted login-tip">Dica: adicione este endereço aos favoritos ou à tela inicial do celular para abrir o sistema com um toque.</p></section><section class="panel" id="recoveryPanel" hidden style="max-width:480px;margin:36px auto 52px">
+<link rel="stylesheet" href="./design-review.css?v=20261118r1"><link rel="stylesheet" href="./mobile-pipeline.css?v=20261118a"></head><body><header><div class="brand-line">GRANILAR SUL</div><small>Gestão de orçamentos • Qualidade, Compromisso, Confiança • 28 anos</small></header><main><div id="message" role="status"></div><section class="panel" id="login"><h2>Acesso à equipe</h2><p class="muted">Use seu e-mail e senha da equipe para entrar com segurança. Seus orçamentos ficam salvos e sincronizados.</p><label>E-mail<input id="email" type="email" autocomplete="username"></label><br><label>Senha<input id="password" type="password" autocomplete="current-password"></label><div class="actions"><button id="signIn">Entrar</button><button type="button" class="light" id="forgotPassword">Esqueci minha senha</button><button class="light" id="signUp" type="button" hidden aria-hidden="true" tabindex="-1">Criar acesso</button></div><p class="muted login-tip">Dica: adicione este endereço aos favoritos ou à tela inicial do celular para abrir o sistema com um toque.</p></section><section class="panel" id="recoveryPanel" hidden style="max-width:480px;margin:36px auto 52px">
 <h2>Definir nova senha</h2>
 <p class="muted">O link de recuperação foi validado. Defina uma senha nova para acessar seus orçamentos.</p>
 <form id="recoveryForm">
@@ -162,7 +162,7 @@ td button{padding:7px 12px;min-height:34px}
 <div><label for="campaignTag">Código da campanha</label><input id="campaignTag" maxlength="70" autocomplete="off" placeholder="Ex.: granilar_teste10d"></div>
 <div><label for="creativeTag">Código do anúncio ou link</label><input id="creativeTag" maxlength="70" autocomplete="off" placeholder="Ex.: tradicao"></div>
 <div><label for="nextFollowup">Próximo contato (opcional)</label><input id="nextFollowup" type="date"><small class="muted">Lembrete visual no painel, sem envio automático.</small></div>
-</div><h3>Itens do projeto</h3><p class="section-help">Descreva as peças, materiais, medidas e o preço combinado. Informe o valor unitário de cada peça ou serviço. Para quantidades fracionadas, use vírgula: 1,5.</p><div id="items"></div><button class="light" id="addItem">+ Adicionar item</button><div class="grid four" style="margin-top:16px"><div><label>Frete (R$)</label><input id="shipping" type="text" inputmode="decimal" placeholder="0,00" value="0,00"></div><div><label>Desconto (R$)</label><input id="discount" type="text" inputmode="decimal" placeholder="0,00" value="0,00"></div><div><label>Status</label><select id="status"><option value="rascunho">Rascunho</option><option value="enviado">Enviado</option><option value="aprovado">Aprovado (sem confirmar venda)</option><option value="fechado">Venda fechada</option><option value="recusado">Recusado</option></select></div><div><label>Forma e condições de pagamento</label><input id="paymentTerms" placeholder="Ex.: Pix à vista ou cartão em até 5x"></div><div><label for="validUntil">Validade da proposta</label><input id="validUntil" type="date" aria-label="Validade da proposta"><span class="muted">Opcional; aparece no PDF.</span></div><div><label for="deliveryTerms">Prazo de entrega / execução</label><input id="deliveryTerms" type="text" placeholder="Ex.: 20 dias úteis após aprovação"></div></div><div style="margin-top:12px"><label>Observações</label><textarea id="notes"></textarea></div><div class="summary-card" aria-live="polite"><div class="summary-line"><span>Subtotal das peças</span><strong id="subtotalItems">R$ 0,00</strong></div><div class="summary-line"><span>Frete</span><strong id="freightPreview">R$ 0,00</strong></div><div class="summary-line"><span>Desconto</span><strong id="discountPreview">− R$ 0,00</strong></div><div class="summary-line grand"><span>Valor final</span><span class="total" id="total">R$ 0,00</span></div></div><p class="inline-alert" id="discountAlert"></p><div class="actions"><button id="save">Salvar orçamento</button><button class="secondary" id="print">Visualizar / salvar PDF</button></div></section><section class="panel" id="historico"><div class="row"><h2>Orçamentos salvos</h2><button class="light" id="refresh">Atualizar</button></div><p class="section-help" id="historyCount">Orçamentos criados pela equipe, do mais recente ao mais antigo.</p><div class="history-tools"><label for="searchQuotes">Buscar por cliente ou número</label><input id="searchQuotes" type="search" placeholder="Digite o cliente ou o nº do orçamento"></div><div class="table-scroll"><table><thead><tr><th>Nº</th><th>Cliente</th><th>Status</th><th>Valor</th><th>Data</th><th>Ações</th></tr></thead><tbody id="history"></tbody></table></div></section><section class="panel" id="clientes"><div class="row"><h2>Cadastro de clientes</h2><button class="light" id="clearClient" type="button">Novo cliente</button></div><div class="grid"><div><label>Nome *</label><input id="customerName"></div><div><label>WhatsApp</label><input id="customerPhone"></div><div><label>E-mail</label><input id="customerEmail" type="email"></div><div><label>Endereço</label><input id="customerAddress"></div></div><div class="actions"><button id="saveClient" type="button">Salvar cliente</button></div><div class="table-scroll" style="margin-top:16px"><table><thead><tr><th>Cliente</th><th>Telefone</th><th>E-mail</th><th>Ações</th></tr></thead><tbody id="customers"></tbody></table></div></section></div></main><div id="printArea"></div><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.119.0/dist/umd/supabase.min.js"></script><script>
+</div><h3>Itens do projeto</h3><p class="section-help">Descreva as peças, materiais, medidas e o preço combinado. Informe o valor unitário de cada peça ou serviço. Para quantidades fracionadas, use vírgula: 1,5.</p><div id="items"></div><button class="light" id="addItem">+ Adicionar item</button><div class="grid four" style="margin-top:16px"><div><label>Frete (R$)</label><input id="shipping" type="text" inputmode="decimal" placeholder="0,00" value="0,00"></div><div><label>Desconto (R$)</label><input id="discount" type="text" inputmode="decimal" placeholder="0,00" value="0,00"></div><div><label>Status</label><select id="status"><option value="rascunho">Rascunho</option><option value="enviado">Enviado ao cliente</option><option value="em_negociacao">Em negociação</option><option value="sem_resposta">Aguardando retorno</option><option value="aprovado">Aprovado (sem confirmar venda)</option><option value="fechado">Venda fechada</option><option value="recusado">Não avançou / recusado</option></select></div><div><label>Forma e condições de pagamento</label><input id="paymentTerms" placeholder="Ex.: Pix à vista ou cartão em até 5x"></div><div><label for="validUntil">Validade da proposta</label><input id="validUntil" type="date" aria-label="Validade da proposta"><span class="muted">Opcional; aparece no PDF.</span></div><div><label for="deliveryTerms">Prazo de entrega / execução</label><input id="deliveryTerms" type="text" placeholder="Ex.: 20 dias úteis após aprovação"></div></div><div style="margin-top:12px"><label>Observações</label><textarea id="notes"></textarea></div><div class="summary-card" aria-live="polite"><div class="summary-line"><span>Subtotal das peças</span><strong id="subtotalItems">R$ 0,00</strong></div><div class="summary-line"><span>Frete</span><strong id="freightPreview">R$ 0,00</strong></div><div class="summary-line"><span>Desconto</span><strong id="discountPreview">− R$ 0,00</strong></div><div class="summary-line grand"><span>Valor final</span><span class="total" id="total">R$ 0,00</span></div></div><p class="inline-alert" id="discountAlert"></p><div class="actions"><button id="save">Salvar orçamento</button><button class="secondary" id="print">Visualizar / salvar PDF</button></div></section><section class="panel" id="historico"><div class="row"><h2>Orçamentos salvos</h2><button class="light" id="refresh">Atualizar</button></div><p class="section-help" id="historyCount">Orçamentos criados pela equipe, do mais recente ao mais antigo.</p><div class="history-tools gs-history-filters"><div><label for="searchQuotes">Buscar por cliente ou número</label><input id="searchQuotes" type="search" placeholder="Nome ou nº do orçamento"></div><div><label for="filterQuotes">Mostrar propostas</label><select id="filterQuotes"><option value="abertas">Em aberto</option><option value="todas">Todas</option><option value="sem_resposta">Aguardando retorno</option><option value="fechado">Vendas fechadas</option><option value="recusado">Não avançaram</option></select></div></div><div id="history" class="gs-quote-list" aria-live="polite"></div></section><section class="panel" id="clientes"><div class="row"><h2>Cadastro de clientes</h2><button class="light" id="clearClient" type="button">Novo cliente</button></div><div class="grid"><div><label>Nome *</label><input id="customerName"></div><div><label>WhatsApp</label><input id="customerPhone"></div><div><label>E-mail</label><input id="customerEmail" type="email"></div><div><label>Endereço</label><input id="customerAddress"></div></div><div class="actions"><button id="saveClient" type="button">Salvar cliente</button></div><div class="table-scroll" style="margin-top:16px"><table><thead><tr><th>Cliente</th><th>Telefone</th><th>E-mail</th><th>Ações</th></tr></thead><tbody id="customers"></tbody></table></div></section></div></main><div id="printArea"></div><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.119.0/dist/umd/supabase.min.js"></script><script>
 // Chave publica: pode estar no frontend. Nunca adicionar service_role ou secret aqui.
 window.GRANILAR_CONFIG = {
   supabaseUrl: 'https://jmkygdlfmgqnuyjpykva.supabase.co',
@@ -264,7 +264,7 @@ function data(){
   lead_source:campaign?'google_ads':($("leadSource").value||null),
   utm_campaign:campaign||null,
   utm_content:campaign?(creative||null):null,
-  sent_at:status==='enviado'&&(!current||current.status!=='enviado')?(current?.sent_at||new Date().toISOString()):(current?.sent_at||null),
+  sent_at:['enviado','em_negociacao','sem_resposta','aprovado','fechado'].includes(status)&&!current?.sent_at?new Date().toISOString():(current?.sent_at||null),
   closed_at:status==='fechado'?(current?.closed_at||new Date().toISOString()):null,
   next_followup_on:$("nextFollowup").value||null
  }
@@ -315,29 +315,111 @@ window.GranilarCommercialAPI=Object.freeze({
   }
 });
 
-function renderHistory(){
-const term=($('searchQuotes').value||'').trim().toLocaleLowerCase('pt-BR');
-const matched=quotes.filter(q=>String(q.number).includes(term)||String(q.client_name||'').toLocaleLowerCase('pt-BR').includes(term));
-$('historyCount').textContent=matched.length+' de '+quotes.length+' orçamento(s) no histórico recente';
-$('history').replaceChildren();
-const labels={rascunho:'Rascunho',enviado:'Enviado',aprovado:'Aprovado',fechado:'Venda fechada',recusado:'Recusado'};
-matched.forEach(q=>{
-const tr=document.createElement('tr');
-const values=['#'+q.number,q.client_name,labels[q.status]||q.status,money(quoteValue(q)),new Date(q.created_at).toLocaleDateString('pt-BR')];
-values.forEach((v,i)=>{const td=document.createElement('td');td.dataset.label=['Número','Cliente','Status','Total','Data'][i];if(i===2){const span=document.createElement('span');span.textContent=v;span.className='status-pill '+q.status;td.append(span)}else{td.textContent=v;if(i===3)td.className='amount'}tr.append(td)});
-const td=document.createElement('td');td.dataset.label='Ações';
-const b=document.createElement('button');b.textContent='Editar';b.className='secondary';b.onclick=()=>openQuote(q.id);
-const copy=document.createElement('button');copy.textContent='Duplicar';copy.className='light copy-quote';copy.type='button';copy.onclick=()=>duplicateQuote(q.id);
-td.append(b,copy);tr.append(td);$('history').append(tr);
-});
-if(!matched.length){const tr=document.createElement('tr'),td=document.createElement('td');td.colSpan=6;td.dataset.label='';td.textContent=term?'Nenhum orçamento corresponde à busca.':'Ainda não há orçamentos salvos.';tr.append(td);$('history').append(tr)}
+const quoteStatusNames={rascunho:'Rascunho',enviado:'Enviado ao cliente',em_negociacao:'Em negociação',sem_resposta:'Aguardando retorno',aprovado:'Aprovado (aguardando fechamento)',fechado:'Venda fechada',recusado:'Não avançou / recusado'};
+const quoteOpenStages=['rascunho','enviado','em_negociacao','sem_resposta','aprovado'];
+const quoteSentStages=['enviado','em_negociacao','sem_resposta','aprovado','fechado'];
+function makeQuoteElement(tag,className,textContent){
+ const node=document.createElement(tag);
+ if(className)node.className=className;
+ if(textContent!==undefined)node.textContent=textContent;
+ return node;
 }
+function renderHistory(){
+ const term=($('searchQuotes').value||'').trim().toLocaleLowerCase('pt-BR');
+ const filter=$('filterQuotes')?.value||'abertas';
+ const matched=quotes.filter(q=>{
+  const word=String(q.number).includes(term)||String(q.client_name||'').toLocaleLowerCase('pt-BR').includes(term);
+  return word&&(filter==='todas'||(filter==='abertas'?quoteOpenStages.includes(q.status):q.status===filter));
+ });
+ $('historyCount').textContent=matched.length+' proposta(s) exibida(s) entre '+quotes.length+' orçamento(s) recentes. Abra “Movimentar proposta” para registrar o andamento.';
+ const root=$('history');root.replaceChildren();
+ if(!matched.length){
+  root.append(makeQuoteElement('p','gs-quote-empty',term?'Nenhuma proposta corresponde à busca.':'Nenhuma proposta nesta situação. Altere o filtro para ver outras.'));
+  return;
+ }
+ matched.forEach(q=>{
+  const card=makeQuoteElement('article','gs-quote-card');
+  card.dataset.quoteId=q.id;
+  const header=makeQuoteElement('div','gs-quote-card-head');
+  const headline=makeQuoteElement('div','gs-quote-headline');
+  headline.append(makeQuoteElement('span','gs-quote-number','ORÇAMENTO #'+q.number),makeQuoteElement('h3','gs-quote-client',q.client_name||'Cliente'));
+  const stage=makeQuoteElement('span','gs-quote-stage gs-quote-stage-'+q.status,quoteStatusNames[q.status]||q.status);
+  header.append(headline,stage);
+  const overview=makeQuoteElement('div','gs-quote-overview');
+  const val=makeQuoteElement('div','gs-quote-data');
+  val.append(makeQuoteElement('small','', 'Valor da proposta'),makeQuoteElement('strong','gs-quote-amount',money(quoteValue(q))));
+  const date=makeQuoteElement('div','gs-quote-data');
+  date.append(makeQuoteElement('small','','Criado em'),makeQuoteElement('span','',new Date(q.created_at).toLocaleDateString('pt-BR')));
+  const followup=makeQuoteElement('div','gs-quote-data');
+  followup.append(makeQuoteElement('small','','Próximo contato'),makeQuoteElement('span','',q.next_followup_on?fmtDateBR(q.next_followup_on):'Não agendado'));
+  overview.append(val,date,followup);
+  const actions=makeQuoteElement('div','gs-quote-actions');
+  const edit=makeQuoteElement('button','secondary gs-quote-edit','Editar orçamento');edit.type='button';edit.onclick=()=>openQuote(q.id);
+  const duplicate=makeQuoteElement('button','light gs-quote-duplicate','Duplicar');duplicate.type='button';duplicate.onclick=()=>duplicateQuote(q.id);
+  actions.append(edit,duplicate);
+  const details=makeQuoteElement('details','gs-quote-move');
+  const summary=makeQuoteElement('summary','','Movimentar proposta e registrar retorno');
+  const form=makeQuoteElement('form','gs-quote-move-form');
+  const fields=makeQuoteElement('div','gs-quote-move-fields');
+  const stageLabel=makeQuoteElement('label','', 'Situação da proposta');
+  const stageSelect=document.createElement('select');stageSelect.setAttribute('aria-label','Situação da proposta #'+q.number);stageSelect.required=true;
+  Object.entries(quoteStatusNames).forEach(([key,label])=>{
+   const opt=new Option(label,key);stageSelect.append(opt);
+  });
+  stageSelect.value=q.status;stageLabel.append(stageSelect);
+  const dateLabel=makeQuoteElement('label','','Próximo contato (opcional)');
+  const dateInput=document.createElement('input');dateInput.type='date';dateInput.value=q.next_followup_on||'';dateLabel.append(dateInput);
+  const noteLabel=makeQuoteElement('label','gs-quote-note-label','Observação interna (não aparece no PDF)');
+  const noteInput=document.createElement('textarea');noteInput.rows=3;noteInput.maxLength=800;noteInput.placeholder='Ex.: cliente pediu prazo, não respondeu, quer rever material ou valor';noteInput.value=q.internal_note||'';noteLabel.append(noteInput);
+  fields.append(stageLabel,dateLabel,noteLabel);
+  const saveButton=makeQuoteElement('button','gs-quote-save','Salvar andamento');saveButton.type='submit';
+  const result=makeQuoteElement('p','gs-quote-feedback','');result.setAttribute('role','status');result.setAttribute('aria-live','polite');
+  form.append(fields,saveButton,result);
+  form.addEventListener('submit',async event=>{
+   event.preventDefault();
+   const status=stageSelect.value, nextFollowup=dateInput.value||null,internalNote=noteInput.value.trim()||null;
+   const oldNote=q.internal_note||null;
+   if(status===q.status&&nextFollowup===(q.next_followup_on||null)&&internalNote===oldNote){
+    result.textContent='Nenhuma alteração para salvar.';return;
+   }
+   saveButton.disabled=true;saveButton.textContent='Salvando...';result.textContent='';
+   const patch={status,next_followup_on:nextFollowup,internal_note:internalNote,
+    closed_at:status==='fechado'?(q.closed_at||new Date().toISOString()):null,
+    sent_at:quoteSentStages.includes(status)&&!q.sent_at?new Date().toISOString():(q.sent_at||null)};
+   try{
+    let query=db.from('quotes').update(patch).eq('id',q.id);
+    if(q.updated_at)query=query.eq('updated_at',q.updated_at);
+    const response=await query.select('id,status,internal_note,next_followup_on,updated_at,closed_at,sent_at').maybeSingle();
+    if(response.error)throw response.error;
+    if(!response.data)throw Error('Esta proposta foi modificada em outra sessão. Clique em Atualizar e tente novamente.');
+    Object.assign(q,response.data);
+    $('approvedMetric').textContent=quotes.filter(quote=>['aprovado','fechado'].includes(quote.status)).length;
+    renderHistory();
+    window.dispatchEvent(new Event('granilar:quotes-updated'));
+    const current=[...$('history').querySelectorAll('.gs-quote-card')].find(el=>el.dataset.quoteId===q.id);
+    if(current){
+     const opened=current.querySelector('details');
+     if(opened)opened.open=true;
+     const message=current.querySelector('.gs-quote-feedback');
+     if(message)message.textContent='Andamento salvo e sincronizado para a equipe.';
+    } else msg('Proposta atualizada. Ela saiu do filtro atual; veja em “Todas”.');
+   }catch(error){
+    result.textContent='Não foi possível salvar: '+(error.message||'tente novamente.');
+    saveButton.disabled=false;saveButton.textContent='Salvar andamento';
+   }
+  });
+  details.append(summary,form);
+  card.append(header,overview,actions,details);
+  root.append(card);
+ });
+}
+
 async function load(){
 const r=await db.from('quotes').select('*').order('created_at',{ascending:false}).limit(300);
 if(r.error){msg('Falha ao carregar orçamentos: '+r.error.message);return}
 quotes=r.data||[];
 $('quoteMetric').textContent=quotes.length;
-$('approvedMetric').textContent=quotes.filter(q=>q.status==='aprovado').length;
+$('approvedMetric').textContent=quotes.filter(q=>['aprovado','fechado'].includes(q.status)).length;
 renderHistory();
 window.dispatchEvent(new Event('granilar:quotes-updated'));
 }
@@ -535,6 +617,6 @@ $('clientName').addEventListener('input',()=>{
  const client=clients.find(c=>c.id===selected);
  if(client&&$('clientName').value.trim()!==client.full_name)$('clientPicker').value='';
 });
-$('saveClient').onclick=saveClient;$('clearClient').onclick=clearClient;$('searchQuotes').addEventListener('input',renderHistory);$('attributionMessage').addEventListener('input',applyAttribution);['email','password'].forEach(k=>$(k).addEventListener('keydown',e=>{if(e.key==='Enter')$('signIn').click()}));['shipping','discount'].forEach(k=>{$(k).addEventListener('input',calc);$(k).addEventListener('blur',()=>{$(k).value=brInput($(k).value);calc()})});reset();session();})();
+$('saveClient').onclick=saveClient;$('clearClient').onclick=clearClient;$('searchQuotes').addEventListener('input',renderHistory);$('filterQuotes').addEventListener('change',renderHistory);$('attributionMessage').addEventListener('input',applyAttribution);['email','password'].forEach(k=>$(k).addEventListener('keydown',e=>{if(e.key==='Enter')$('signIn').click()}));['shipping','discount'].forEach(k=>{$(k).addEventListener('input',calc);$(k).addEventListener('blur',()=>{$(k).value=brInput($(k).value);calc()})});reset();session();})();
 </script><script src="./interface-v6.js?v=20261117b" defer></script><script src="./interface-v7.js?v=20261117a" defer></script>
 <script src="./inteligencia-v1.js?v=20261118b" defer></script><script src="./analytics-ga4-v1.js?v=20261118a" defer></script></body></html>
