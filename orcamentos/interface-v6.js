@@ -119,7 +119,7 @@
     // O botão 'Novo orçamento' da versão anterior já mantém sua lógica de limpar.
     $('newQuote').addEventListener('click',()=>navigate('quote'));
     // Abre a guia ANTES do clique chamar a função original openQuote().
-    $('history').addEventListener('click',e=>{if(e.target.closest('button'))navigate('quote')},true);
+    $('history').addEventListener('click',e=>{if(e.target.closest('.gs-quote-edit,.gs-quote-duplicate'))navigate('quote')},true);
     // Mudanças de autenticação não afetam o formulário de recuperação.
     const viewObserver=new MutationObserver(()=>{
       document.body.classList.toggle('gs-authenticated',app.style.display!=='none');
@@ -128,16 +128,15 @@
     viewObserver.observe(app,{attributes:true,attributeFilter:['style']});
     function refreshRecents(){
       const list=$('gs-recent-list');if(!list)return;list.replaceChildren();
-      const rows=[...$('history').querySelectorAll('tr')].filter(tr=>tr.querySelector('button'));
-      if(!rows.length){const p=document.createElement('p');p.className='gs-empty';p.textContent='Nenhuma proposta registrada ainda.';list.append(p);return;}
+      const rows=[...$('history').querySelectorAll('.gs-quote-card')];
+      if(!rows.length){const p=document.createElement('p');p.className='gs-empty';p.textContent='Nenhuma proposta neste filtro. Consulte a aba Orçamentos.';list.append(p);return;}
       for(const row of rows.slice(0,5)){
-        const cells=[...row.querySelectorAll('td')];
         const b=document.createElement('button');b.type='button';b.className='gs-recent-entry';
         const left=document.createElement('span'),title=document.createElement('strong'),sub=document.createElement('small'),value=document.createElement('span');
-        title.textContent=cells[1]?.textContent||'Cliente';
-        sub.textContent=`${cells[0]?.textContent||''}  ·  ${cells[4]?.textContent||''}`;
-        left.append(title,sub);value.className='gs-recent-value';value.textContent=cells[3]?.textContent||'';
-        b.append(left,value);b.addEventListener('click',()=>row.querySelector('button')?.click());list.append(b);
+        title.textContent=row.querySelector('.gs-quote-client')?.textContent||'Cliente';
+        sub.textContent=(row.querySelector('.gs-quote-number')?.textContent||'')+' · '+(row.querySelector('.gs-quote-stage')?.textContent||'');
+        left.append(title,sub);value.className='gs-recent-value';value.textContent=row.querySelector('.gs-quote-amount')?.textContent||'';
+        b.append(left,value);b.addEventListener('click',()=>row.querySelector('.gs-quote-edit')?.click());list.append(b);
       }
     }
     new MutationObserver(refreshRecents).observe($('history'),{childList:true});refreshRecents();
