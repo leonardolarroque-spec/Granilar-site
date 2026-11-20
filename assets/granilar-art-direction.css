@@ -246,6 +246,35 @@
 }
 #materiais .material-card .gs-material-preview{bottom:auto;height:auto;aspect-ratio:4/3;z-index:2}
 #materiais .material-card .gs-compare-btn{z-index:5}
+/* Selo compacto Ampliar: separa os controles sobre a foto sem colisão no celular. */
+#materiais .material-card .gs-material-preview::after{
+  content:'⌕ Ampliar';
+  top:7px;
+  left:7px;
+  padding:5px 6px;
+  font:700 9px/1.15 Inter,Arial,sans-serif;
+  max-width:calc(50% - 9px);
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+#materiais .material-card .gs-compare-btn{
+  top:7px;
+  right:7px;
+  min-height:29px;
+  padding:6px 8px;
+  font-size:9px;
+}
+@media(max-width:700px){
+  #materiais .material-card .gs-material-preview::after{
+    top:6px;
+    left:6px;
+    font-size:8px;
+    padding:4px 5px;
+    max-width:calc(48% - 8px);
+  }
+  #materiais .material-card .gs-compare-btn{top:6px;right:6px;padding:6px;font-size:9px}
+}
 #materiais .material-card.gs-material-selected{outline:3px solid #902f3e;outline-offset:2px;box-shadow:none!important}
 @media(max-width:980px){
   #materiais .material-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
