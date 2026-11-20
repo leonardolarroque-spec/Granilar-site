@@ -121,6 +121,28 @@
 #galeria .gallery-filter{background:#fff;border-color:#D7DDD7;border-radius:5px;min-height:42px}
 #galeria .gallery-filter[aria-pressed="true"]{background:#29373A;border-color:#29373A;color:white}
 .gs-photo-open::after{border-radius:4px}
+/* Projetos entregues: selo Ampliar compacto e afastado do botão Ver projeto. */
+#galeria .gallery-grid .tile .gs-photo-open::after{
+  content:'↗ Ampliar';
+  top:10px;
+  right:10px;
+  padding:5px 7px;
+  font:700 9px/1.15 Inter,Arial,sans-serif;
+  max-width:calc(48% - 8px);
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+@media(max-width:760px){
+  #galeria .gallery-grid .tile .gs-photo-open::after{
+    top:8px;
+    right:8px;
+    padding:4px 6px;
+    font-size:8px;
+    max-width:calc(44% - 8px);
+  }
+}
+
 .gs-project-detail-link{border-radius:4px}
 .gs-gallery-hint{margin-top:16px}
 .gs-editorial-story{background:#26353A}
