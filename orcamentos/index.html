@@ -269,7 +269,28 @@ function data(){
   next_followup_on:$("nextFollowup").value||null
  }
 }
-async function save(){const q=data();if($("campaignTag").value.trim()&&!normalizedTag($("campaignTag").value)){msg('Código de campanha inválido. Use apenas letras, números, _ e -, até 70 caracteres.');return}if($("creativeTag").value.trim()&&!normalizedTag($("creativeTag").value)){msg('Código de anúncio inválido. Use apenas letras, números, _ e -, até 70 caracteres.');return}if(!q.client_name){msg('Informe o nome do cliente.');return}if(!q.items.length||q.items.some(i=>!i.description||i.quantity<=0||i.price<=0)){msg('Preencha descrição, quantidade e valor unitário maior que zero em cada item.');return}if(toCents(q.discount)>q.items.reduce((s,i)=>s+lineCents(i.quantity,i.price),0)+toCents(q.shipping)){msg('Desconto maior que o valor do orçamento.');return}const btn=$('save');btn.disabled=true;try{const result=editing?await db.from('quotes').update(q).eq('id',editing).select().single():await db.from('quotes').insert({...q,created_by:user.id}).select().single();if(result.error)throw result.error;msg('Orçamento salvo com sucesso.');editing=result.data.id;await load();$('formTitle').textContent='Editando orçamento #'+result.data.number}catch(e){msg('Não foi possível salvar: '+e.message)}finally{btn.disabled=false}}
+async function save(){
+ const q=data();
+ if($('campaignTag').value.trim()&&!normalizedTag($('campaignTag').value)){msg('Código de campanha inválido. Use apenas letras, números, _ e -, até 70 caracteres.');return}
+ if($('creativeTag').value.trim()&&!normalizedTag($('creativeTag').value)){msg('Código de anúncio inválido. Use apenas letras, números, _ e -, até 70 caracteres.');return}
+ if(!q.client_name){msg('Informe o nome do cliente.');return}
+ if(!q.items.length||q.items.some(i=>!i.description||i.quantity<=0||i.price<=0)){msg('Preencha descrição, quantidade e valor unitário maior que zero em cada item.');return}
+ if(toCents(q.discount)>q.items.reduce((sum,item)=>sum+lineCents(item.quantity,item.price),0)+toCents(q.shipping)){msg('Desconto maior que o valor do orçamento.');return}
+ const btn=$('save');btn.disabled=true;
+ try{
+  q.client_id=await resolveQuoteClient(q);
+  const result=editing?
+   await db.from('quotes').update(q).eq('id',editing).select().single():
+   await db.from('quotes').insert({...q,created_by:user.id}).select().single();
+  if(result.error)throw result.error;
+  editing=result.data.id;
+  await Promise.all([load(),loadClients()]);
+  $('clientPicker').value=q.client_id;
+  $('formTitle').textContent='Editando orçamento #'+result.data.number;
+  msg('Orçamento salvo e vinculado à ficha permanente do cliente.');
+ }catch(e){msg('Não foi possível salvar: '+e.message)}
+ finally{btn.disabled=false}
+}
 function quoteValue(q){const items=Array.isArray(q.items)?q.items:[];const subtotal=items.reduce((s,i)=>s+lineCents(i.quantity,i.price),0);return Math.max(0,subtotal+toCents(q.shipping)-toCents(q.discount))/100}
 
 /* Consulta protegida para o painel comercial. Usa a sessão e as regras RLS existentes. */
@@ -420,7 +441,7 @@ if(r.error){msg('Falha ao carregar orçamentos: '+r.error.message);return}
 quotes=r.data||[];
 $('quoteMetric').textContent=quotes.length;
 $('approvedMetric').textContent=quotes.filter(q=>['aprovado','fechado'].includes(q.status)).length;
-renderHistory();
+renderHistory();renderClients();
 window.dispatchEvent(new Event('granilar:quotes-updated'));
 }
 function openQuote(id){
@@ -571,37 +592,196 @@ finally{btn.disabled=false}
 async function session(){const r=await db.auth.getUser();user=r.data.user;if(!user){$('recoveryPanel').hidden=true;$('login').style.display='block';$('app').style.display='none';return}
 if(recoveryMode){$('login').style.display='none';$('app').style.display='none';$('recoveryPanel').hidden=false;return}
 $('recoveryPanel').hidden=true;const m=await db.from('team_members').select('active').eq('user_id',user.id).maybeSingle();if(m.error||!m.data?.active){await db.auth.signOut();user=null;$('login').style.display='block';$('app').style.display='none';msg('Este usuário ainda não foi autorizado para a equipe.');return}$('login').style.display='none';$('app').style.display='block';$('currentUser').textContent=user.email;await Promise.all([load(),loadClients()])}
-function fillFromClient(id){const c=clients.find(x=>x.id===id);if(!c)return;$('clientName').value=c.full_name||'';$('clientPhone').value=c.phone||'';$('clientEmail').value=c.email||'';$('projectAddress').value=c.address||''}
+
+let activeClientProfileId=null,profileVersion=0;
+function clientKey(v){return String(v||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLocaleLowerCase('pt-BR').trim().replace(/\s+/g,' ')}
+function clientPhone(v){const p=String(v||'').replace(/\D/g,'');return p.startsWith('55')&&(p.length===12||p.length===13)?p.slice(2):p}
+function clientEmail(v){return String(v||'').trim().toLocaleLowerCase('pt-BR')}
+function clientNode(tag,cls,value){const e=document.createElement(tag);if(cls)e.className=cls;if(value!==undefined)e.textContent=value;return e}
+function fillFromClient(id){
+ const c=clients.find(x=>x.id===id);if(!c)return;
+ $('clientName').value=c.full_name||'';$('clientPhone').value=c.phone||'';
+ $('clientEmail').value=c.email||'';$('projectAddress').value=c.address||'';
+}
+function quoteForClient(id){
+ if(!clients.some(c=>c.id===id)){msg('Cliente não encontrado. Atualize a lista.');return}
+ reset();$('clientPicker').value=id;fillFromClient(id);
+ const nav=document.querySelector('.gs-nav-item[data-page="quote"]');
+ if(nav)nav.click();else $('orcamento').scrollIntoView({behavior:'smooth'});
+}
+function editClientCard(id){
+ const c=clients.find(x=>x.id===id);if(!c)return;
+ editingClient=c.id;
+ $('customerName').value=c.full_name||'';
+ $('customerPhone').value=c.phone||'';
+ $('customerEmail').value=c.email||'';
+ $('customerAddress').value=c.address||'';
+ $('saveClient').textContent='Atualizar ficha';
+ $('customerName').scrollIntoView({behavior:'smooth',block:'center'});
+ $('customerName').focus({preventScroll:true});
+}
+function renderClients(){
+ const root=$('customers');if(!root)return;
+ root.replaceChildren();
+ if(!clients.length){
+  root.append(clientNode('p','gs-client-empty','Nenhum cliente cadastrado. Crie a primeira ficha aqui ou salve um novo orçamento.'));
+  return;
+ }
+ const term=clientKey($('gs-filter-clients')?.value);
+ for(const c of clients){
+  const card=clientNode('article','gs-client-card');
+  card.dataset.clientId=c.id;
+  card.dataset.search=clientKey([c.full_name,c.phone,c.email,c.address].filter(Boolean).join(' '));
+  if(term&&!card.dataset.search.includes(term))card.hidden=true;
+  const identity=clientNode('div','gs-client-card-identity');
+  const names=String(c.full_name||'').trim().split(/\s+/).filter(Boolean);
+  const initials=(names.length>1?names[0][0]+names[names.length-1][0]:names[0]?.slice(0,2)||'GS').toLocaleUpperCase('pt-BR');
+  identity.append(clientNode('span','gs-client-avatar',initials));
+  const title=clientNode('div','gs-client-card-title');
+  title.append(clientNode('h3','',c.full_name||'Cliente'));
+  title.append(clientNode('p','',quotes.filter(q=>q.client_id===c.id).length+' orçamento(s) entre os 300 mais recentes'));
+  identity.append(title);
+  const head=clientNode('div','gs-client-card-head');head.append(identity);
+  const contact=clientNode('div','gs-client-contact');
+  contact.append(clientNode('span','',c.phone||'WhatsApp não informado'));
+  contact.append(clientNode('span','',c.email||'E-mail não informado'));
+  const actions=clientNode('div','gs-client-card-actions');
+  const open=clientNode('button','gs-client-primary','Ver ficha e histórico');
+  open.type='button';open.onclick=()=>showClientProfile(c.id);
+  const quote=clientNode('button','gs-client-secondary','Novo orçamento');
+  quote.type='button';quote.onclick=()=>quoteForClient(c.id);
+  actions.append(open,quote);card.append(head,contact,actions);
+  root.append(card);
+ }
+}
 async function loadClients(){
  const r=await db.from('clients').select('*').order('full_name',{ascending:true}).limit(1000);
  if(r.error){msg('Não foi possível carregar os clientes: '+r.error.message);return}
  clients=r.data||[];
  $('clientMetric').textContent=clients.length;
  const selected=$('clientPicker').value;
- $('clientPicker').replaceChildren(new Option('Selecione ou preencha manualmente',''));
+ $('clientPicker').replaceChildren(new Option('Novo cliente — ou selecione um cadastrado',''));
  clients.forEach(c=>$('clientPicker').append(new Option(c.full_name,c.id)));
- $('clientPicker').value=selected;
- $('customers').replaceChildren();
- clients.forEach(c=>{
-  const tr=document.createElement('tr');
-  [c.full_name,c.phone||'—',c.email||'—'].forEach((v,i)=>{const td=document.createElement('td');td.dataset.label=['Cliente','Telefone','E-mail'][i];td.textContent=v;tr.append(td)});
-  const td=document.createElement('td');td.dataset.label='Ações';const edit=document.createElement('button');edit.className='secondary';edit.textContent='Editar';edit.onclick=()=>{
-   editingClient=c.id;$('customerName').value=c.full_name||'';$('customerPhone').value=c.phone||'';
-   $('customerEmail').value=c.email||'';$('customerAddress').value=c.address||'';$('saveClient').textContent='Atualizar cliente';
-   $('customerName').focus();
-  };td.append(edit);tr.append(td);$('customers').append(tr);
- });
+ $('clientPicker').value=clients.some(c=>c.id===selected)?selected:'';
+ renderClients();
 }
-function clearClient(){editingClient=null;['customerName','customerPhone','customerEmail','customerAddress'].forEach(k=>$(k).value='');$('saveClient').textContent='Salvar cliente'}
+async function showClientProfile(id){
+ const c=clients.find(x=>x.id===id),root=$('clientProfile');if(!c||!root)return;
+ const version=++profileVersion;activeClientProfileId=id;root.hidden=false;root.replaceChildren();
+ const head=clientNode('div','gs-client-profile-head'),heading=clientNode('div','');
+ heading.append(clientNode('span','gs-client-profile-kicker','FICHA DO CLIENTE'),clientNode('h3','',c.full_name));
+ const close=clientNode('button','gs-client-profile-close','Fechar');close.type='button';
+ close.onclick=()=>{root.hidden=true;activeClientProfileId=null;profileVersion++};
+ head.append(heading,close);root.append(head);
+ const info=clientNode('div','gs-client-profile-contact');
+ for(const [label,value] of [['WhatsApp',c.phone||'Não informado'],['E-mail',c.email||'Não informado'],['Endereço cadastrado',c.address||'Não informado']]){
+  const cell=clientNode('div','gs-client-info');
+  cell.append(clientNode('small','',label),clientNode('strong','',value));info.append(cell);
+ }
+ root.append(info);
+ const actions=clientNode('div','gs-client-profile-actions');
+ const newQuote=clientNode('button','gs-client-primary','+ Criar orçamento para este cliente');
+ newQuote.type='button';newQuote.onclick=()=>quoteForClient(id);
+ const edit=clientNode('button','gs-client-secondary','Editar dados do cliente');
+ edit.type='button';edit.onclick=()=>editClientCard(id);
+ actions.append(newQuote,edit);root.append(actions);
+ const history=clientNode('section','gs-client-profile-history');
+ const title=clientNode('h4','','Histórico de orçamentos');
+ const list=clientNode('div','gs-client-history-grid');
+ const status=clientNode('p','gs-client-feedback','Carregando propostas deste cliente…');
+ history.append(title,list,status);root.append(history);
+ root.scrollIntoView({behavior:'smooth',block:'start'});
+ try{
+  const all=[],size=500;
+  for(let offset=0;offset<10000;offset+=size){
+   const result=await db.from('quotes').select('id,client_id,number,status,created_at,items,shipping,discount')
+    .eq('client_id',id).order('created_at',{ascending:false}).range(offset,offset+size-1);
+   if(result.error)throw result.error;
+   all.push(...(result.data||[]));
+   if(!result.data||result.data.length<size)break;
+  }
+  if(version!==profileVersion||activeClientProfileId!==id)return;
+  list.replaceChildren();title.textContent='Histórico de orçamentos ('+all.length+')';
+  status.textContent=all.length?'Veja valores e abra um orçamento para continuar o atendimento.':'Ainda não há orçamentos para este cliente.';
+  for(const q of all){
+   const item=clientNode('article','gs-client-history-item');
+   const top=clientNode('div','gs-client-history-top');
+   top.append(clientNode('strong','','Orçamento #'+q.number),clientNode('span','gs-client-history-stage',quoteStatusNames[q.status]||q.status));
+   const body=clientNode('div','gs-client-history-body');
+   body.append(clientNode('b','',money(quoteValue(q))),clientNode('time','',new Date(q.created_at).toLocaleDateString('pt-BR')));
+   const open=clientNode('button','','Abrir orçamento');open.type='button';
+   open.onclick=async()=>{
+    open.disabled=true;
+    const response=await window.GranilarCommercialAPI.openQuote(q.id);
+    if(response?.error){
+     status.dataset.state='error';status.textContent='Não foi possível abrir: '+response.error.message;
+     open.disabled=false;
+    }
+   };
+   item.append(top,body,open);list.append(item);
+  }
+ }catch(error){
+  if(version!==profileVersion)return;
+  status.dataset.state='error';status.textContent='Erro ao consultar histórico: '+(error.message||'tente novamente.');
+ }
+}
+function clearClient(){
+ editingClient=null;['customerName','customerPhone','customerEmail','customerAddress'].forEach(k=>$(k).value='');
+ $('saveClient').textContent='Salvar cliente';
+}
+async function resolveQuoteClient(q){
+ if(q.client_id)return q.client_id;
+ const response=await db.from('clients').select('id,full_name,phone,email,address').order('full_name',{ascending:true}).limit(1000);
+ if(response.error)throw response.error;
+ const all=response.data||[],name=clientKey(q.client_name),phone=clientPhone(q.client_phone),email=clientEmail(q.client_email);
+ const contactMatches=all.filter(c=>(phone&&clientPhone(c.phone)===phone)||(email&&clientEmail(c.email)===email));
+ if(contactMatches.length>1)throw Error('Existem várias fichas com esse contato. Selecione a correta antes de salvar.');
+ if(contactMatches.length===1){
+  if(clientKey(contactMatches[0].full_name)!==name)throw Error('O WhatsApp ou e-mail já pertence a outra ficha. Selecione o cliente cadastrado para evitar misturar históricos.');
+  return contactMatches[0].id;
+ }
+ const nameMatches=all.filter(c=>clientKey(c.full_name)===name);
+ if(nameMatches.length>1)throw Error('Existem clientes com esse nome. Selecione a ficha correta antes de salvar.');
+ if(nameMatches.length===1){
+  const c=nameMatches[0];
+  if((phone&&c.phone&&clientPhone(c.phone)!==phone)||(email&&c.email&&clientEmail(c.email)!==email))
+   throw Error('Já existe uma ficha com esse nome e contatos diferentes. Selecione o cliente correto ou crie outro na aba Clientes.');
+  const updates={};
+  if(phone&&!c.phone)updates.phone=q.client_phone;
+  if(email&&!c.email)updates.email=q.client_email;
+  if(q.project_address&&!c.address)updates.address=q.project_address;
+  if(Object.keys(updates).length){
+   const r=await db.from('clients').update(updates).eq('id',c.id).select('id').single();
+   if(r.error)throw r.error;
+  }
+  return c.id;
+ }
+ const newRecord={full_name:q.client_name,phone:q.client_phone||null,email:q.client_email||null,address:q.project_address||null,created_by:user.id};
+ const r=await db.from('clients').insert(newRecord).select('id').single();
+ if(r.error)throw r.error;
+ return r.data.id;
+}
 async function saveClient(){
  const c={full_name:$('customerName').value.trim(),phone:$('customerPhone').value.trim(),email:$('customerEmail').value.trim(),address:$('customerAddress').value.trim()};
  if(!c.full_name){msg('Informe o nome do cliente.');return}
+ const duplicate=clients.find(x=>x.id!==editingClient&&(
+  (c.email&&clientEmail(c.email)===clientEmail(x.email))||
+  (c.phone&&clientPhone(c.phone)===clientPhone(x.phone))||
+  (clientKey(x.full_name)===clientKey(c.full_name)&&!c.phone&&!c.email)
+ ));
+ if(duplicate){msg('Já existe uma ficha com esses dados. Consulte o cliente cadastrado antes de duplicá-lo.');return}
  const btn=$('saveClient');btn.disabled=true;
- try {
-  const r=editingClient?await db.from('clients').update(c).eq('id',editingClient).select().single():await db.from('clients').insert({...c,created_by:user.id}).select().single();
+ try{
+  const r=editingClient?
+   await db.from('clients').update(c).eq('id',editingClient).select().single():
+   await db.from('clients').insert({...c,created_by:user.id}).select().single();
   if(r.error)throw r.error;
-  await loadClients();$('clientPicker').value=r.data.id;fillFromClient(r.data.id);clearClient();msg('Cliente salvo com sucesso.');
- }catch(e){msg('Erro ao salvar cliente: '+e.message)}finally{btn.disabled=false}
+  const id=r.data.id;
+  await loadClients();clearClient();$('clientPicker').value=id;
+  msg('Ficha salva e disponível para os dois acessos.');
+  await showClientProfile(id);
+ }catch(e){msg('Erro ao salvar cliente: '+e.message)}
+ finally{btn.disabled=false}
 }
 const c=window.GRANILAR_CONFIG||{};if(!c.supabaseUrl||!c.supabasePublishableKey){msg('Configuração pendente: preencha config.js com os dados públicos do Supabase.');return}if(!window.supabase){msg('Não foi possível carregar a biblioteca de conexão. Verifique a internet.');return}db=window.supabase.createClient(c.supabaseUrl,c.supabasePublishableKey,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
 recoveryMode=new URLSearchParams(window.location.hash.slice(1)).get('type')==='recovery'||new URLSearchParams(window.location.search).get('type')==='recovery';
