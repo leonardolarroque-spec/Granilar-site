@@ -639,7 +639,7 @@ function renderClients(){
   identity.append(clientNode('span','gs-client-avatar',initials));
   const title=clientNode('div','gs-client-card-title');
   title.append(clientNode('h3','',c.full_name||'Cliente'));
-  title.append(clientNode('p','',quotes.filter(q=>q.client_id===c.id).length+' orçamento(s) entre os 300 mais recentes'));
+  title.append(clientNode('p','',quotes.filter(q=>q.client_id===c.id).length+' orçamento(s) recentes'));
   identity.append(title);
   const head=clientNode('div','gs-client-card-head');head.append(identity);
   const contact=clientNode('div','gs-client-contact');
@@ -798,5 +798,5 @@ $('clientName').addEventListener('input',()=>{
  if(client&&$('clientName').value.trim()!==client.full_name)$('clientPicker').value='';
 });
 $('saveClient').onclick=saveClient;$('clearClient').onclick=clearClient;$('searchQuotes').addEventListener('input',renderHistory);$('filterQuotes').addEventListener('change',renderHistory);$('attributionMessage').addEventListener('input',applyAttribution);['email','password'].forEach(k=>$(k).addEventListener('keydown',e=>{if(e.key==='Enter')$('signIn').click()}));['shipping','discount'].forEach(k=>{$(k).addEventListener('input',calc);$(k).addEventListener('blur',()=>{$(k).value=brInput($(k).value);calc()})});reset();session();})();
-</script><script src="./interface-v6.js?v=20261121clientes" defer></script><script src="./interface-v7.js?v=20261117a" defer></script>
+</script><script src="./interface-v6.js?v=20261121clientes2" defer></script><script src="./interface-v7.js?v=20261117a" defer></script>
 <script src="./inteligencia-v1.js?v=20261118b" defer></script><script src="./analytics-ga4-v1.js?v=20261118a" defer></script></body></html>
