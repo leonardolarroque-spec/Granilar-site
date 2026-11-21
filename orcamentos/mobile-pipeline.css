@@ -41,6 +41,8 @@
  #historico .gs-quote-note-label textarea{resize:vertical;min-height:88px}
  #historico .gs-quote-save{min-height:44px;margin-top:14px;border-radius:7px;padding:11px 22px}
  #historico .gs-quote-feedback{color:#216b52;font-weight:700;font-size:12px;line-height:1.5;margin:10px 0 0}
+#historico .gs-quote-feedback[data-state="error"]{color:#a52c3d}
+#historico .gs-quote-feedback[data-state="success"]{color:#216b52}
  #historico .gs-quote-empty{border:1px dashed #ccd8d1;color:#5c6b6b;background:#f9faf8;padding:20px;border-radius:8px;font-size:13px;line-height:1.7}
  #historico .gs-quote-move summary:focus-visible,#historico .gs-quote-card button:focus-visible,#historico .gs-quote-move-form :focus-visible{outline:3px solid #a85665;outline-offset:2px}
 }
