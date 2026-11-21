@@ -125,7 +125,7 @@ td button{padding:7px 12px;min-height:34px}
 }
 </style><link rel="stylesheet" href="./interface-v6.css?v=20261117b"><link rel="stylesheet" href="./interface-v7.css?v=20261117a">
 <link rel="stylesheet" href="./inteligencia-v1.css?v=20261118a"><link rel="stylesheet" href="./analytics-ga4-v1.css?v=20261118a">
-<link rel="stylesheet" href="./design-review.css?v=20261118r1"><link rel="stylesheet" href="./mobile-pipeline.css?v=20261118a"></head><body><header><div class="brand-line">GRANILAR SUL</div><small>Gestão de orçamentos • Qualidade, Compromisso, Confiança • 28 anos</small></header><main><div id="message" role="status"></div><section class="panel" id="login"><h2>Acesso à equipe</h2><p class="muted">Use seu e-mail e senha da equipe para entrar com segurança. Seus orçamentos ficam salvos e sincronizados.</p><label>E-mail<input id="email" type="email" autocomplete="username"></label><br><label>Senha<input id="password" type="password" autocomplete="current-password"></label><div class="actions"><button id="signIn">Entrar</button><button type="button" class="light" id="forgotPassword">Esqueci minha senha</button><button class="light" id="signUp" type="button" hidden aria-hidden="true" tabindex="-1">Criar acesso</button></div><p class="muted login-tip">Dica: adicione este endereço aos favoritos ou à tela inicial do celular para abrir o sistema com um toque.</p></section><section class="panel" id="recoveryPanel" hidden style="max-width:480px;margin:36px auto 52px">
+<link rel="stylesheet" href="./design-review.css?v=20261118r1"><link rel="stylesheet" href="./mobile-pipeline.css?v=20261121permissoes"></head><body><header><div class="brand-line">GRANILAR SUL</div><small>Gestão de orçamentos • Qualidade, Compromisso, Confiança • 28 anos</small></header><main><div id="message" role="status"></div><section class="panel" id="login"><h2>Acesso à equipe</h2><p class="muted">Use seu e-mail e senha da equipe para entrar com segurança. Seus orçamentos ficam salvos e sincronizados.</p><label>E-mail<input id="email" type="email" autocomplete="username"></label><br><label>Senha<input id="password" type="password" autocomplete="current-password"></label><div class="actions"><button id="signIn">Entrar</button><button type="button" class="light" id="forgotPassword">Esqueci minha senha</button><button class="light" id="signUp" type="button" hidden aria-hidden="true" tabindex="-1">Criar acesso</button></div><p class="muted login-tip">Dica: adicione este endereço aos favoritos ou à tela inicial do celular para abrir o sistema com um toque.</p></section><section class="panel" id="recoveryPanel" hidden style="max-width:480px;margin:36px auto 52px">
 <h2>Definir nova senha</h2>
 <p class="muted">O link de recuperação foi validado. Defina uma senha nova para acessar seus orçamentos.</p>
 <form id="recoveryForm">
@@ -380,9 +380,9 @@ function renderHistory(){
    const status=stageSelect.value, nextFollowup=dateInput.value||null,internalNote=noteInput.value.trim()||null;
    const oldNote=q.internal_note||null;
    if(status===q.status&&nextFollowup===(q.next_followup_on||null)&&internalNote===oldNote){
-    result.textContent='Nenhuma alteração para salvar.';return;
+    result.dataset.state='info';result.textContent='Nenhuma alteração para salvar.';return;
    }
-   saveButton.disabled=true;saveButton.textContent='Salvando...';result.textContent='';
+   saveButton.disabled=true;saveButton.textContent='Salvando...';result.dataset.state='info';result.textContent='';
    const patch={status,next_followup_on:nextFollowup,internal_note:internalNote,
     closed_at:status==='fechado'?(q.closed_at||new Date().toISOString()):null,
     sent_at:quoteSentStages.includes(status)&&!q.sent_at?new Date().toISOString():(q.sent_at||null)};
@@ -401,10 +401,10 @@ function renderHistory(){
      const opened=current.querySelector('details');
      if(opened)opened.open=true;
      const message=current.querySelector('.gs-quote-feedback');
-     if(message)message.textContent='Andamento salvo e sincronizado para a equipe.';
+     if(message){message.dataset.state='success';message.textContent='Andamento salvo e sincronizado para a equipe.';}
     } else msg('Proposta atualizada. Ela saiu do filtro atual; veja em “Todas”.');
    }catch(error){
-    result.textContent='Não foi possível salvar: '+(error.message||'tente novamente.');
+    result.dataset.state='error';result.textContent='Não foi possível salvar: '+(error.message||'tente novamente.');
     saveButton.disabled=false;saveButton.textContent='Salvar andamento';
    }
   });
