@@ -81,15 +81,17 @@
     const payLabel=$('paymentTerms')?.closest('div')?.querySelector('label');if(payLabel)payLabel.textContent='Condições de pagamento';
     if($('newQuote'))$('newQuote').textContent='Limpar e começar outro';
 
-    // Melhorias no histórico e clientes: as tabelas e a lógica original permanecem.
+    // Histórico comercial e busca rápida na carteira de clientes.
     archive.classList.add('gs-table-section');clients.classList.add('gs-table-section');
     const searchClient=document.createElement('div');searchClient.className='gs-search-client';
     searchClient.innerHTML='<label for="gs-filter-clients">Localizar cliente</label><input id="gs-filter-clients" type="search" placeholder="Busque por nome, telefone ou e-mail">';
-    const customerTable=clients.querySelector('.table-scroll');
-    if(customerTable){customerTable.before(searchClient);
+    const customerCards=$('customers');
+    if(customerCards){customerCards.before(searchClient);
       $('gs-filter-clients').addEventListener('input',e=>{
         const term=e.target.value.trim().toLocaleLowerCase('pt-BR');
-        $('customers').querySelectorAll('tr').forEach(tr=>tr.hidden=!!term&&!tr.textContent.toLocaleLowerCase('pt-BR').includes(term));
+        customerCards.querySelectorAll('.gs-client-card').forEach(card=>{
+          card.hidden=!!term&&!card.dataset.search.includes(term);
+        });
       });
     }
 
