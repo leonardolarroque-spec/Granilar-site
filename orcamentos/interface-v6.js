@@ -88,7 +88,7 @@
     const customerCards=$('customers');
     if(customerCards){customerCards.before(searchClient);
       $('gs-filter-clients').addEventListener('input',e=>{
-        const term=e.target.value.trim().toLocaleLowerCase('pt-BR');
+        const term=e.target.value.trim().normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLocaleLowerCase('pt-BR').replace(/\s+/g,' ');
         customerCards.querySelectorAll('.gs-client-card').forEach(card=>{
           card.hidden=!!term&&!card.dataset.search.includes(term);
         });
