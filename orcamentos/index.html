@@ -125,7 +125,32 @@ td button{padding:7px 12px;min-height:34px}
 }
 </style><link rel="stylesheet" href="./interface-v6.css?v=20261117b"><link rel="stylesheet" href="./interface-v7.css?v=20261117a">
 <link rel="stylesheet" href="./inteligencia-v1.css?v=20261118a"><link rel="stylesheet" href="./analytics-ga4-v1.css?v=20261118a">
-<link rel="stylesheet" href="./design-review.css?v=20261118r1"><link rel="stylesheet" href="./mobile-pipeline.css?v=20261121permissoes"><link rel="stylesheet" href="./clientes-v2.css?v=20261121a"></head><body><header><div class="brand-line">GRANILAR SUL</div><small>Gestão de orçamentos • Qualidade, Compromisso, Confiança • 28 anos</small></header><main><div id="message" role="status"></div><section class="panel" id="login"><h2>Acesso à equipe</h2><p class="muted">Use seu e-mail e senha da equipe para entrar com segurança. Seus orçamentos ficam salvos e sincronizados.</p><label>E-mail<input id="email" type="email" autocomplete="username"></label><br><label>Senha<input id="password" type="password" autocomplete="current-password"></label><div class="actions"><button id="signIn">Entrar</button><button type="button" class="light" id="forgotPassword">Esqueci minha senha</button><button class="light" id="signUp" type="button" hidden aria-hidden="true" tabindex="-1">Criar acesso</button></div><p class="muted login-tip">Dica: adicione este endereço aos favoritos ou à tela inicial do celular para abrir o sistema com um toque.</p></section><section class="panel" id="recoveryPanel" hidden style="max-width:480px;margin:36px auto 52px">
+<link rel="stylesheet" href="./design-review.css?v=20261118r1"><link rel="stylesheet" href="./mobile-pipeline.css?v=20261121permissoes"><link rel="stylesheet" href="./clientes-v2.css?v=20261121a"><style>
+@media screen{
+#orcamento .gs-voice-entry{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin:4px 0 18px}
+#orcamento .gs-voice-entry span{color:#627174;font-size:12px}
+#orcamento .gs-voice-entry button,#gs-voice-home{background:#913542;color:#fff;border:1px solid #913542;min-height:46px;border-radius:8px;padding:12px 16px;font-weight:750;white-space:normal}
+#gs-voice-home{margin-top:8px;max-width:100%}
+#orcamento .gs-voice-panel{min-width:0;background:#f7f9f7;border:1px solid #d7e1da;border-radius:10px;padding:17px;margin:0 0 24px;overflow-wrap:anywhere}
+#orcamento .gs-voice-heading{display:flex;justify-content:space-between;align-items:center;gap:10px}
+#orcamento .gs-voice-heading strong{font-size:17px;color:#293b40}
+#orcamento .gs-voice-panel p{font-size:13px;line-height:1.6;color:#506267;margin:10px 0}
+#orcamento .gs-voice-panel label{display:block;margin:12px 0 6px;font-weight:700;font-size:12px}
+#orcamento .gs-voice-panel textarea{width:100%;min-width:0;max-width:100%;padding:12px;min-height:105px;font-size:16px;resize:vertical;border:1px solid #cdd8d1;border-radius:7px}
+#orcamento .gs-voice-panel button{min-height:44px;margin-top:8px;white-space:normal;max-width:100%}
+#orcamento #voiceChatOption{margin:15px 0;border-top:1px solid #dbe3dd;padding-top:12px}
+#orcamento #voiceChatOption summary{font-size:13px;font-weight:780;cursor:pointer;padding:9px 0;color:#7f2d3b}
+#orcamento #voiceStatus[data-state="error"]{color:#a12e3c;font-weight:700}
+#orcamento #voiceStatus[data-state="ok"]{color:#216b52;font-weight:700}
+#orcamento #voiceReview{border-top:1px solid #dbe3dd;margin-top:16px;padding-top:16px}
+#orcamento #voicePreview{display:grid;gap:8px;margin:10px 0}
+#orcamento #voicePreview article{background:#fff;border:1px solid #dde5df;border-radius:7px;padding:11px}
+#orcamento #voicePreview article p{margin:4px 0;white-space:pre-wrap}
+#orcamento #voicePreview .voice-pending{color:#96323f}
+#orcamento .gs-voice-panel[hidden],#orcamento #voiceReview[hidden]{display:none!important}
+}
+@media screen and (max-width:720px){#orcamento .gs-voice-panel{padding:13px}#orcamento .gs-voice-entry button,#orcamento #voiceOrganize,#orcamento #voiceCopy,#orcamento #voiceImport,#orcamento #voiceApply{width:100%}#gs-voice-home{width:100%}}
+</style></head><body><header><div class="brand-line">GRANILAR SUL</div><small>Gestão de orçamentos • Qualidade, Compromisso, Confiança • 28 anos</small></header><main><div id="message" role="status"></div><section class="panel" id="login"><h2>Acesso à equipe</h2><p class="muted">Use seu e-mail e senha da equipe para entrar com segurança. Seus orçamentos ficam salvos e sincronizados.</p><label>E-mail<input id="email" type="email" autocomplete="username"></label><br><label>Senha<input id="password" type="password" autocomplete="current-password"></label><div class="actions"><button id="signIn">Entrar</button><button type="button" class="light" id="forgotPassword">Esqueci minha senha</button><button class="light" id="signUp" type="button" hidden aria-hidden="true" tabindex="-1">Criar acesso</button></div><p class="muted login-tip">Dica: adicione este endereço aos favoritos ou à tela inicial do celular para abrir o sistema com um toque.</p></section><section class="panel" id="recoveryPanel" hidden style="max-width:480px;margin:36px auto 52px">
 <h2>Definir nova senha</h2>
 <p class="muted">O link de recuperação foi validado. Defina uma senha nova para acessar seus orçamentos.</p>
 <form id="recoveryForm">
@@ -148,7 +173,23 @@ td button{padding:7px 12px;min-height:34px}
 <div id="securityFeedback" class="security-feedback" role="status" aria-live="polite"></div>
 </form>
 </section>
-<nav class="quick-nav" aria-label="Navegação do sistema"><a href="#orcamento">+ Novo orçamento</a><a href="#historico">Orçamentos salvos</a><a href="#clientes">Clientes</a></nav><div class="stat-grid"><div class="stat"><div class="muted">Orçamentos</div><div class="stat-number" id="quoteMetric">0</div></div><div class="stat"><div class="muted">Aprovados</div><div class="stat-number" id="approvedMetric">0</div></div><div class="stat"><div class="muted">Clientes</div><div class="stat-number" id="clientMetric">0</div></div></div><section class="panel" id="orcamento"><div class="row"><h2 id="formTitle">Novo orçamento</h2><button class="light" id="newQuote">Novo orçamento</button></div><p class="section-help">Informe os dados do projeto. O valor de cada peça é definido individualmente, sem tabela fixa de materiais.</p><h3>Dados do cliente</h3><div class="grid"><div><label>Cliente cadastrado</label><select id="clientPicker"><option value="">Novo cliente — ou selecione um cadastrado</option></select><small class="muted" id="clientPickerHint">Ao salvar um orçamento de cliente novo, a ficha será criada automaticamente.</small></div><div><label>Cliente *</label><input id="clientName" required></div><div><label>WhatsApp</label><input id="clientPhone" placeholder="(51) 99999-9999"></div><div><label>E-mail</label><input id="clientEmail" type="email"></div><div><label>Endereço da obra</label><input id="projectAddress"></div>
+<nav class="quick-nav" aria-label="Navegação do sistema"><a href="#orcamento">+ Novo orçamento</a><a href="#historico">Orçamentos salvos</a><a href="#clientes">Clientes</a></nav><div class="stat-grid"><div class="stat"><div class="muted">Orçamentos</div><div class="stat-number" id="quoteMetric">0</div></div><div class="stat"><div class="muted">Aprovados</div><div class="stat-number" id="approvedMetric">0</div></div><div class="stat"><div class="muted">Clientes</div><div class="stat-number" id="clientMetric">0</div></div></div><section class="panel" id="orcamento"><div class="row"><h2 id="formTitle">Novo orçamento</h2><button class="light" id="newQuote">Novo orçamento</button></div><p class="section-help">Informe os dados do projeto. O valor de cada peça é definido individualmente, sem tabela fixa de materiais.</p><div class="gs-voice-entry"><button type="button" id="voiceToggle" aria-expanded="false" aria-controls="voicePanel">🎙 Orçamento por voz</button><span>Dite o projeto e preencha os itens de uma vez.</span></div>
+<section id="voicePanel" class="gs-voice-panel" hidden aria-label="Orçamento por voz">
+ <div class="gs-voice-heading"><strong>Descreva o projeto</strong><button type="button" id="voiceClose" class="light">Fechar</button></div>
+ <p>Toque no campo e use o microfone do teclado do celular. Informe peças, material, medidas, preço combinado e pagamento. Preencha nome, telefone e endereço do cliente nos campos do sistema, não neste texto.</p>
+ <label for="voiceText">Ditado ou descrição do projeto</label>
+ <textarea id="voiceText" rows="5" maxlength="5000" placeholder="Ex.: Uma bancada em granito Preto São Gabriel, 2,40 x 0,60 m, com instalação, valor total R$ 3.200, pagamento em cinco vezes."></textarea>
+ <button type="button" id="voiceOrganize">Organizar com IA</button>
+ <details id="voiceChatOption"><summary>Usar meu ChatGPT (alternativa sem API)</summary>
+ <p>Copie a instrução, cole no seu ChatGPT, dite o projeto sem dados pessoais e peça a resposta no formato indicado. Depois cole a resposta abaixo.</p>
+ <button type="button" id="voiceCopy" class="secondary">Copiar instrução para ChatGPT</button>
+ <label for="voiceJson">Resposta do ChatGPT</label>
+ <textarea id="voiceJson" rows="4" maxlength="24000" placeholder="Cole aqui o JSON gerado pelo ChatGPT"></textarea>
+ <button type="button" id="voiceImport" class="secondary">Conferir resposta</button>
+ </details>
+ <p id="voiceStatus" role="status" aria-live="polite"></p>
+ <div id="voiceReview" hidden><strong>Conferir antes de preencher</strong><div id="voicePreview"></div><p>Confira especialmente medidas, quantidades e preços. Os campos não informados ficam pendentes. Nenhuma proposta é salva nesta etapa.</p><button type="button" id="voiceApply">Preencher orçamento para revisão</button></div>
+</section><h3>Dados do cliente</h3><div class="grid"><div><label>Cliente cadastrado</label><select id="clientPicker"><option value="">Novo cliente — ou selecione um cadastrado</option></select><small class="muted" id="clientPickerHint">Ao salvar um orçamento de cliente novo, a ficha será criada automaticamente.</small></div><div><label>Cliente *</label><input id="clientName" required></div><div><label>WhatsApp</label><input id="clientPhone" placeholder="(51) 99999-9999"></div><div><label>E-mail</label><input id="clientEmail" type="email"></div><div><label>Endereço da obra</label><input id="projectAddress"></div>
 <div><label for="leadSource">Origem do contato (opcional)</label><select id="leadSource">
 <option value="">Não informada</option>
 <option value="google_ads">Google Ads</option>
@@ -242,6 +283,7 @@ function reset(){
  ["clientName","clientPhone","clientEmail","projectAddress","paymentTerms","notes","validUntil","deliveryTerms","leadSource","nextFollowup","attributionMessage","campaignTag","creativeTag"].forEach(k=>$(k).value="");$("attributionFeedback").textContent="";
  $("shipping").value="0,00";$("discount").value="0,00";$("status").value="rascunho";$("clientPicker").value="";
  $("items").replaceChildren();itemTemplate();msg("");
+ if($("voicePanel")){voiceClear();voiceOpen(false);}
 }
 function data(){
  const current=editing?quotes.find(q=>q.id===editing):null;
@@ -783,12 +825,117 @@ async function saveClient(){
  }catch(e){msg('Erro ao salvar cliente: '+e.message)}
  finally{btn.disabled=false}
 }
+
+let voiceDraft=null,voiceRun=0;
+const voiceInstruction='Organize o orçamento de marmoraria que vou ditar em JSON puro, sem Markdown. Não invente preços, medidas, quantidades, material nem condições. Use somente os dados que eu informar. Estrutura: {"items":[{"description":"", "material":null,"environment":null,"details":null,"finish":null,"unit":null,"quantity":null,"price":null}],"shipping":null,"discount":null,"payment_terms":null,"delivery_terms":null,"notes":null,"missing":[]}. unit deve ser un, m², m linear ou serviço. Preço é unitário em reais, número JSON. Se eu informar claramente preço total de uma única peça ou serviço, use quantidade 1. Não confunda dimensões com quantidade cobrada. Se houver preço global de vários itens sem divisão, deixe os preços nulos e informe a pendência em missing; não rateie. Campos desconhecidos devem ser null. Não inclua nome, endereço, telefone, CPF ou e-mail do cliente. Responda com JSON para colar no sistema Granilar Sul.';
+function voiceStatus(message,state='info'){$('voiceStatus').textContent=message;$('voiceStatus').dataset.state=state}
+function voiceClear(){
+ voiceRun++;voiceDraft=null;$('voiceText').value='';$('voiceJson').value='';$('voiceReview').hidden=true;$('voicePreview').replaceChildren();$('voiceOrganize').disabled=false;voiceStatus('');
+}
+function voiceOpen(open){
+ $('voicePanel').hidden=!open;$('voiceToggle').setAttribute('aria-expanded',String(open));
+ if(open){$('voicePanel').scrollIntoView({behavior:'smooth',block:'start'});}
+}
+function voiceText(v,max=400){return typeof v==='string'?v.trim().slice(0,max):''}
+function voiceNumber(v){return typeof v==='number'&&Number.isFinite(v)&&v>=0&&v<=100000000?v:null}
+function voiceNormalize(raw){
+ if(!raw||typeof raw!=='object'||!Array.isArray(raw.items)||raw.items.length>30)throw Error('Formato inválido. É necessário um JSON com até 30 itens.');
+ const units=['un','m²','m linear','serviço'];
+ const items=raw.items.map(item=>{
+  if(!item||typeof item!=='object')throw Error('Item inválido.');
+  return {description:voiceText(item.description),material:voiceText(item.material),environment:voiceText(item.environment),details:voiceText(item.details,800),finish:voiceText(item.finish),unit:units.includes(item.unit)?item.unit:null,quantity:voiceNumber(item.quantity),price:voiceNumber(item.price)};
+ });
+ return {items,shipping:voiceNumber(raw.shipping),discount:voiceNumber(raw.discount),payment_terms:voiceText(raw.payment_terms),delivery_terms:voiceText(raw.delivery_terms),notes:voiceText(raw.notes,1000),missing:Array.isArray(raw.missing)?raw.missing.slice(0,20).map(v=>voiceText(v)).filter(Boolean):[]};
+}
+function voiceShow(raw){
+ const draft=voiceNormalize(raw);voiceDraft=draft;
+ const root=$('voicePreview');root.replaceChildren();
+ const add=(tag,parent,text,cls)=>{const el=document.createElement(tag);el.textContent=text;if(cls)el.className=cls;parent.append(el);return el;};
+ const pending=[...draft.missing];
+ if(!draft.items.length)pending.push('Nenhum item identificado.');
+ draft.items.forEach((item,index)=>{
+  const card=document.createElement('article');root.append(card);
+  add('strong',card,(index+1)+'. '+(item.description||'Descrição pendente'));
+  const detail=[item.material,item.environment,item.details,item.finish].filter(Boolean).join(' · ');
+  if(detail)add('p',card,detail);
+  add('p',card,'Quantidade: '+(item.quantity===null?'não informada':item.quantity.toLocaleString('pt-BR'))+' | Unidade: '+(item.unit||'não informada'));
+  add('p',card,'Valor unitário: '+(item.price===null?'não informado':money(item.price)));
+  if(!item.description||!item.quantity||!item.price||!item.unit)pending.push('Revise descrição, unidade, quantidade e valor do item '+(index+1)+'.');
+ });
+ add('p',root,'Frete: '+(draft.shipping===null?'não informado':money(draft.shipping))+' · Desconto: '+(draft.discount===null?'não informado':money(draft.discount)));
+ if(draft.payment_terms)add('p',root,'Pagamento: '+draft.payment_terms);
+ if(draft.delivery_terms)add('p',root,'Entrega: '+draft.delivery_terms);
+ if(draft.notes)add('p',root,'Observações: '+draft.notes);
+ if(pending.length)add('p',root,'Pendências: '+[...new Set(pending)].join(' '),'voice-pending');
+ $('voiceReview').hidden=false;$('voiceApply').disabled=!draft.items.length;voiceStatus('Rascunho organizado. Revise antes de preencher.','ok');
+}
+async function voiceOrganize(){
+ const transcript=$('voiceText').value.trim();
+ if(!transcript){voiceStatus('Dite ou escreva a descrição do projeto.','error');return}
+ if(!user||$('app').style.display==='none'){voiceStatus('Faça login novamente.','error');return}
+ if(!confirm('Enviar somente a descrição técnica e comercial do projeto ao Groq? Confira que não há dados pessoais do cliente.'))return;
+ const request=++voiceRun;voiceDraft=null;$('voiceReview').hidden=true;$('voiceOrganize').disabled=true;voiceStatus('Organizando o projeto…');
+ try{
+  const session=await db.auth.getSession();
+  if(session.error||!session.data?.session?.access_token)throw Error('Faça login novamente.');
+  const config=window.GRANILAR_CONFIG;
+  const res=await fetch(config.supabaseUrl+'/functions/v1/orcamento-voz',{method:'POST',headers:{Authorization:'Bearer '+session.data.session.access_token,apikey:config.supabasePublishableKey,'Content-Type':'application/json'},body:JSON.stringify({transcript}),signal:AbortSignal.timeout(45000)});
+  const result=await res.json();
+  if(request!==voiceRun)return;
+  if(!res.ok){if(result.code==='NOT_CONFIGURED')$('voiceChatOption').open=true;throw Error(result.error||'Não foi possível consultar a IA.')}
+  voiceShow(result.draft);
+ }catch(err){if(request===voiceRun)voiceStatus(err.message||'IA indisponível. Use a alternativa do ChatGPT.','error')}
+ finally{if(request===voiceRun)$('voiceOrganize').disabled=false}
+}
+function voiceImport(){
+ try{
+  const raw=$('voiceJson').value.trim().replace(/^```(?:json)?\s*/i,'').replace(/\s*```$/,'');
+  if(!raw)throw Error('Cole a resposta em JSON do ChatGPT.');
+  voiceRun++;$('voiceOrganize').disabled=false;voiceDraft=null;$('voiceReview').hidden=true;
+  voiceShow(JSON.parse(raw));
+ }catch(err){voiceStatus('Não foi possível importar. Peça ao ChatGPT somente o JSON conforme a instrução.','error')}
+}
+function voiceApply(){
+ if(!voiceDraft)return;
+ if(editing){voiceStatus('Abra um novo orçamento para importar por voz. Isso evita alterar uma proposta já salva.','error');return}
+ if(!user||$('app').style.display==='none'){voiceStatus('Faça login novamente.','error');return}
+ if(getItems().length&&!confirm('Substituir os itens preenchidos deste rascunho pelos itens conferidos?'))return;
+ const draft=voiceDraft;
+ $('items').replaceChildren();
+ draft.items.forEach(i=>itemTemplate({...i,unit:i.unit||'un',quantity:i.quantity??'',price:i.price??0}));
+ if(draft.shipping!==null)$('shipping').value=brInput(draft.shipping);
+ if(draft.discount!==null)$('discount').value=brInput(draft.discount);
+ if(draft.payment_terms)$('paymentTerms').value=draft.payment_terms;
+ if(draft.delivery_terms)$('deliveryTerms').value=draft.delivery_terms;
+ if(draft.notes)$('notes').value=draft.notes;
+ calc();voiceOpen(false);voiceClear();
+ msg('Itens preenchidos. Confira os dados do cliente, unidade de cobrança, medidas e valores antes de salvar e gerar o PDF.');
+ $('clientName').scrollIntoView({behavior:'smooth',block:'center'});
+}
+$('voiceToggle').onclick=()=>voiceOpen($('voicePanel').hidden);
+$('voiceClose').onclick=()=>voiceOpen(false);
+$('voiceOrganize').onclick=voiceOrganize;
+$('voiceImport').onclick=voiceImport;
+$('voiceApply').onclick=voiceApply;
+$('voiceCopy').onclick=async()=>{
+ try{await navigator.clipboard.writeText(voiceInstruction);voiceStatus('Instrução copiada. Cole no ChatGPT e dite o projeto.','ok')}
+ catch{window.prompt('Copie a instrução abaixo:',voiceInstruction)}
+};
+document.addEventListener('DOMContentLoaded',()=>{
+ const home=document.querySelector('.gs-overview-head');
+ if(home&&!$('gs-voice-home')){
+  const b=document.createElement('button');b.type='button';b.id='gs-voice-home';b.textContent='🎙 Orçamento por voz';
+  b.onclick=()=>{$('newQuote').click();voiceOpen(true)};
+  home.append(b);
+ }
+});
+
 const c=window.GRANILAR_CONFIG||{};if(!c.supabaseUrl||!c.supabasePublishableKey){msg('Configuração pendente: preencha config.js com os dados públicos do Supabase.');return}if(!window.supabase){msg('Não foi possível carregar a biblioteca de conexão. Verifique a internet.');return}db=window.supabase.createClient(c.supabaseUrl,c.supabasePublishableKey,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
 recoveryMode=new URLSearchParams(window.location.hash.slice(1)).get('type')==='recovery'||new URLSearchParams(window.location.search).get('type')==='recovery';
 db.auth.onAuthStateChange(event=>{if(event==='PASSWORD_RECOVERY'){recoveryMode=true;Promise.resolve().then(()=>session())}});
 $('forgotPassword').onclick=requestPasswordReset;
 $('recoveryForm').addEventListener('submit',async e=>{e.preventDefault();await completePasswordRecovery()});
-$('signIn').onclick=async()=>{const r=await db.auth.signInWithPassword({email:$('email').value.trim(),password:$('password').value});if(r.error){msg('Falha no login: '+r.error.message);return}msg('');await session()};$('signUp').onclick=async()=>{const email=$('email').value.trim(),password=$('password').value;if(!email||password.length<8){msg('Informe e-mail e senha com pelo menos 8 caracteres para criar um acesso.');return}const r=await db.auth.signUp({email,password});if(r.error){msg('Falha ao criar acesso: '+r.error.message);return}if(r.data.session)await db.auth.signOut();msg('Solicitação recebida. Confira o e-mail de confirmação; o acesso também depende da autorização da equipe.')};$('signOut').onclick=async()=>{togglePasswordPanel(false);await db.auth.signOut();await session()};
+$('signIn').onclick=async()=>{const r=await db.auth.signInWithPassword({email:$('email').value.trim(),password:$('password').value});if(r.error){msg('Falha no login: '+r.error.message);return}msg('');await session()};$('signUp').onclick=async()=>{const email=$('email').value.trim(),password=$('password').value;if(!email||password.length<8){msg('Informe e-mail e senha com pelo menos 8 caracteres para criar um acesso.');return}const r=await db.auth.signUp({email,password});if(r.error){msg('Falha ao criar acesso: '+r.error.message);return}if(r.data.session)await db.auth.signOut();msg('Solicitação recebida. Confira o e-mail de confirmação; o acesso também depende da autorização da equipe.')};$('signOut').onclick=async()=>{voiceClear();voiceOpen(false);togglePasswordPanel(false);await db.auth.signOut();await session()};
 $('changePasswordToggle').onclick=()=>togglePasswordPanel($('passwordPanel').hidden);
 $('cancelPassword').onclick=()=>togglePasswordPanel(false);
 $('passwordForm').addEventListener('submit',async e=>{e.preventDefault();await changeCurrentPassword()});$('newQuote').onclick=reset;$('addItem').onclick=()=>itemTemplate();$('save').onclick=save;$('print').onclick=printQuote;$('refresh').onclick=async()=>{await Promise.all([load(),loadClients()])};$('clientPicker').onchange=()=>fillFromClient($('clientPicker').value);
