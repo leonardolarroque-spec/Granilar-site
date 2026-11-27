@@ -316,7 +316,7 @@ async function save(){
  if($('campaignTag').value.trim()&&!normalizedTag($('campaignTag').value)){msg('Código de campanha inválido. Use apenas letras, números, _ e -, até 70 caracteres.');return}
  if($('creativeTag').value.trim()&&!normalizedTag($('creativeTag').value)){msg('Código de anúncio inválido. Use apenas letras, números, _ e -, até 70 caracteres.');return}
  if(!q.client_name){msg('Informe o nome do cliente.');return}
- if(!q.items.length||q.items.some(i=>!i.description||i.quantity<=0||i.price<=0)){msg('Preencha descrição, quantidade e valor unitário maior que zero em cada item.');return}
+ if(!q.items.length||q.items.some(i=>!i.description||!['un','m²','m linear','serviço'].includes(i.unit)||i.quantity<=0||i.price<=0)){msg('Preencha descrição, unidade, quantidade e valor unitário maior que zero em cada item.');return}
  if(toCents(q.discount)>q.items.reduce((sum,item)=>sum+lineCents(item.quantity,item.price),0)+toCents(q.shipping)){msg('Desconto maior que o valor do orçamento.');return}
  const btn=$('save');btn.disabled=true;
  try{
@@ -521,8 +521,8 @@ function printableFingerprint(q){
 }
 function printQuote(){
  const q=data();
- if(!q.client_name||!q.items.length||q.items.some(i=>!i.description||i.quantity<=0||i.price<=0)){
-  msg("Preencha o cliente e os itens com descrição, quantidade e valor para visualizar o PDF.");return;
+ if(!q.client_name||!q.items.length||q.items.some(i=>!i.description||!['un','m²','m linear','serviço'].includes(i.unit)||i.quantity<=0||i.price<=0)){
+  msg("Preencha o cliente e os itens com descrição, unidade, quantidade e valor para visualizar o PDF.");return;
  }
  const subtotalCents=q.items.reduce((s,i)=>s+lineCents(i.quantity,i.price),0);
  if(toCents(q.discount)>subtotalCents+toCents(q.shipping)){msg("O desconto não pode ultrapassar o total do orçamento.");return}
@@ -902,7 +902,10 @@ function voiceApply(){
  if(getItems().length&&!confirm('Substituir os itens preenchidos deste rascunho pelos itens conferidos?'))return;
  const draft=voiceDraft;
  $('items').replaceChildren();
- draft.items.forEach(i=>itemTemplate({...i,unit:i.unit||'un',quantity:i.quantity??'',price:i.price??0}));
+ draft.items.forEach(i=>{
+  itemTemplate({...i,unit:i.unit||'un',quantity:i.quantity===null?'':i.quantity.toLocaleString('pt-BR',{useGrouping:false,maximumFractionDigits:6}),price:i.price??0});
+  if(!i.unit){const select=$('items').lastElementChild.querySelector('.item-unit');select.prepend(new Option('Selecione a unidade',''));select.value='';}
+ });
  if(draft.shipping!==null)$('shipping').value=brInput(draft.shipping);
  if(draft.discount!==null)$('discount').value=brInput(draft.discount);
  if(draft.payment_terms)$('paymentTerms').value=draft.payment_terms;
